@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Viveiro de Mudas IFMG/SJE',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>SGV </b>IFMG-SJE',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -214,27 +214,32 @@ return [
             'topnav' => true,
         ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text'        => 'DASHBOARD',
+            'url'         => 'home',
+            'icon'        => 'fas fa-chart-line',
+            //'label'       => 4,
+            //'label_color' => 'success',
+        ],
+        ['header' => 'MENU PRINCIPAL'],
+        [
+            'text' => 'Mudas',
+            'url'  => 'mudas',
+            'icon' => 'fas fa-seedling',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'text' => 'Recipientes',
+            'url'  => 'recipientes',
+            'icon' => 'fas fa-vial',
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text' => 'Sementes',
+            'url'  => 'sementes',
+            'icon' => 'fas fa-burn',
+        ],
+        [
+            'text' => 'Substratos',
+            'url'  => 'substratos',
+            'icon' => 'fas fa-feather-alt',
         ],
         [
             'text'    => 'multilevel',
