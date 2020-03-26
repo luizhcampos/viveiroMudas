@@ -20,6 +20,7 @@ class CreateSementesTable extends Migration
             $table->integer('quant');
             $table->string('observacao')->nullable();
             $table->string('localColeta')->nullable();
+            $table->date('dataColeta')->nullable();
             $table->timestamps();
         });
     }

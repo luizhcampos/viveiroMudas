@@ -223,8 +223,16 @@ return [
         ['header' => 'MENU PRINCIPAL'],
         [
             'text' => 'Mudas',
-            'url'  => 'mudas',
             'icon' => 'fas fa-seedling',
+            'submenu' => [
+                [
+                    'text' => 'Detalhes',
+                    'url'  => 'mudas',
+                ],
+                [
+                    'text' => 'Plantio',
+                    'url'  => 'mudas',
+                ],
         ],
         [
             'text' => 'Recipientes',
