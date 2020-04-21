@@ -2,11 +2,11 @@
     <div class="row">
         <div class="col-8">
             <label>Nome</label>
-            <input class="form-control" type="text" name="nome" placeholder="Obrigatório" value="{{$recipientes->nome ?? old('nome')}}">
+            <input class="form-control" type="text" name="nome" placeholder="Obrigatório" required="ON" value="{{$recipientes->nome ?? old('nome')}}">
         </div>
         <div class="col-md-4">
             <label>Quantidade</label>
-            <input class="form-control" type="number" name="quant" placeholder="Obrigatório" value="{{$recipientes->quant ?? old('quant')}}">
+            <input class="form-control" type="number" name="quant" placeholder="Obrigatório" required="ON" value="{{$recipientes->quant ?? old('quant')}}">
         </div>
     </div>
 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RequestSubstratos;
 use App\Models\Substratos;
 use Illuminate\Http\Request;
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Dotenv\Result\Result;
 use Illuminate\Database\Eloquent\Model;
 
 class Substratos extends Model

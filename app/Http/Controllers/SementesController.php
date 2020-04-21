@@ -54,7 +54,11 @@ class SementesController extends Controller
 
         $sementes = Sementes::create($data);
 
-        return redirect()->route('sementes.index');
+        if ($sementes){
+            return redirect()->route('sementes.index');
+        } else { 
+            return redirect()->route('sementes.create');
+        }
     }
 
     /**

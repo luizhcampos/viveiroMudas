@@ -224,15 +224,14 @@ return [
         [
             'text' => 'Mudas',
             'icon' => 'fas fa-seedling',
-            'submenu' => [
+            'url'  => 'mudas',
+           /* 'submenu' => [
                 [
-                    'text' => 'Detalhes',
+                    'text' => 'Controle de Mudas',
                     'url'  => 'mudas',
+                    'icon' => 'fas fa-archive'
                 ],
-                [
-                    'text' => 'Plantio',
-                    'url'  => 'mudas',
-                ],
+            ],*/
         ],
         [
             'text' => 'Recipientes',
@@ -248,45 +247,7 @@ return [
             'text' => 'Substratos',
             'url'  => 'substratos',
             'icon' => 'fas fa-feather-alt',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
-            'submenu' => [
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-                [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
-                ],
-            ],
-        ],
+        ],/*
         ['header' => 'labels'],
         [
             'text'       => 'important',
@@ -299,7 +260,7 @@ return [
         [
             'text'       => 'information',
             'icon_color' => 'aqua',
-        ],
+        ],*/
     ],
 
     /*

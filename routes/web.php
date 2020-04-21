@@ -20,3 +20,6 @@ Route::any('substratos/search', 'SubstratosController@search')->name('substratos
 
 Route::resource('recipientes', 'RecipientesController');
 Route::any('recipientes/search', 'RecipientesController@search')->name('recipientes.search');
+
+Route::resource('mudas', 'MudasController');
+Route::any('mudas/search', 'MudasController@search')->name('mudas.search');

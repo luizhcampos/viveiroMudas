@@ -18,7 +18,7 @@ class CreateSementesTable extends Migration
             $table->string('nomePopular');
             $table->string('nomeCientifico')->nullable();
             $table->integer('quant');
-            $table->string('observacao')->nullable();
+            $table->string('observacao', 1000)->nullable();
             $table->string('localColeta')->nullable();
             $table->date('dataColeta')->nullable();
             $table->timestamps();
