@@ -46,25 +46,25 @@
             <table class="table table-striped projects">
                 <thead>
                     <tr>
-                        <th style="width: 1%">
-                            Numero
+                        <th>
+                            Identificador
                         </th>
-                        <th style="width: 15%">
+                        <th>
                             Nome
                         </th>
-                        <th style="width: 25%">
+                        <th>
                             Composto(s)
                         </th>
-                        <th style="width: 2%">
-                            Quantidade
+                        <th>
+                            Quantidade M³
                         </th>
-                        <th style="width: 15%">
+                        <th>
                             Início da Maturação
                         </th>
-                        <th style="width: 20%">
+                        <th>
                             Observação
                         </th>
-                        <th style="width: 15%">
+                        <th>
                         </th>
                     </tr>
                 </thead>
@@ -91,7 +91,9 @@
                         </td>
                         <td >
                             <a>
-                                {{$value['inicioMaturacao']}}
+                                @php
+                                echo date_format(new DateTime($value['inicioMaturacao']), "d/m/Y");
+                                @endphp
                             </a>
                         </td>
                         <td >

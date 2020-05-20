@@ -27,11 +27,11 @@ class RequestSementes extends FormRequest
 
         return [
             'nomePopular' => "required|min:3|max:255",
-            'nomeCientifico' => 'nullable|min:3|max:10000',
+            /*'nomeCientifico' => 'nullable|min:3|max:10000',
             'quant' => 'required',
             'observacao' => 'nullable|min:1|max:10000',
             'localColeta' => 'nullable|min:1|max:500',
-            'dataColeta' => 'nullable', //regex de data
+            'dataColeta' => 'nullable', //regex de data*/
         ];
     }
 

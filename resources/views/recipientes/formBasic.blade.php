@@ -6,14 +6,14 @@
         </div>
         <div class="col-md-4">
             <label>Quantidade</label>
-            <input class="form-control" type="number" name="quant" placeholder="Obrigatório" required="ON" value="{{$recipientes->quant ?? old('quant')}}">
+            <input class="form-control" type="number" name="quant" placeholder="Opcional" value="{{$recipientes->quant ?? old('quant')}}">
         </div>
     </div>
 </div>
 <div class="card-body">
     <label>Observação</label>
-    <textarea class="form-control" rows="3" type="text" name="observacao" placeholder="Opcional" 
-        value="{{$recipientes->observacao ?? old('observacao')}}"></textarea>
+    <input class="form-control" rows="3" type="text" name="observacao" placeholder="Opcional" 
+        value="{{$recipientes->observacao ?? old('observacao')}}">
 </div>
 <div class="card-body">
     <button type="submit" class="btn btn-block btn-outline-success btn-lg">Salvar</button>

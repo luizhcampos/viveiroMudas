@@ -1,3 +1,7 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+
 @extends('adminlte::page')
 
 @section('content')
@@ -43,31 +47,35 @@
             </div>
         </div>
             <div class="card-body p-0 text-center">
-            <table class="table table-striped projects">
+            <table class="table table-striped projects  text-center">
                 <thead>
                     <tr>
-                        <th style="width: 1%">
-                            Numero
+                        <th>
+                            Lote
                         </th>
-                        <th style="width: 15%">
+                        <th>
                             Nome Popular
                         </th>
-                        <th style="width: 15%">
-                            Nome Científico
+                        <th>
+                            Peso 100 Un em Kg
                         </th>
-                        <th style="width: 2%">
-                            Quantidade
+                        <th>
+                            Peso Total em Kg
                         </th>
-                        <th style="width: 10%">
+                        <th>
                             Data da Coleta
                         </th>
-                        <th style="width: 10%">
+                        <th>
                             Local da Coleta
                         </th>
-                        <th style="width: 20%">
+                        <th>
                             Observação
                         </th>
-                        <th style="width: 15%">
+                        <th>
+
+                        </th>
+                        <th>
+
                         </th>
                     </tr>
                 </thead>
@@ -82,19 +90,21 @@
                                 {{$value['nomePopular']}}
                             </a>
                         </td>
-                        <td>
+                        <td >
                             <a>
-                                {{$value['nomeCientifico']}}
+                                {{$value['peso_100']}}
                             </a>
                         </td>
                         <td >
                             <a>
-                                {{$value['quant']}}
+                                {{$value['quant_total']}}
                             </a>
                         </td>
                         <td >
-                            <a>
-                                {{$value['dataColeta']}}
+                            <a >
+                                @php
+                                    echo date_format(new DateTime($value['dataColeta']), "d/m/Y");
+                                @endphp
                             </a>
                         </td>
                         <td >
@@ -112,6 +122,8 @@
                                 <i class="fas fa-pencil-alt"></i>
                                 Editar
                             </a>
+                        </td>
+                        <td>  
                             <a class="btn btn-danger btn-sm" href="{{route('sementes.destroy', $value['id'])}}">
                                 <i class="fas fa-trash">
                                 </i>

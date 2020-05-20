@@ -16,7 +16,7 @@ class CreateRecipientesTable extends Migration
         Schema::create('recipientes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
-            $table->integer('quant');
+            $table->integer('quant')->nullable();
             $table->string('observacao')->nullable();
             $table->timestamps();
         });

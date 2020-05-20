@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mudas extends Model
 {
-    protected $fillable = ['nomePopular', 'nomeCientifico', 'quant', 'dataColeta', 'precoMuda', 'blocoPlantio', 'tipoPlantio','canteiroPlantio',
-    'estagioMuda', 'idSubstratos', 'idSementes', 'idRecipientes', 'observacao'];
+    protected $fillable = ['nomePopular', 'nomeCientifico', 'quant', 'dataPlantio', 'custoProducao', 'blocoPlantio', 'tipoPlantio','canteiroPlantio',
+    'estagioMuda', 'taxaPerda', 'dataAtualizacao', 'idSubstratos', 'idSementes', 'idRecipientes', 'volume_Subs_Recip', 'observacao'];
 
     public function Search ($filter = null){
         
@@ -20,4 +20,12 @@ class Mudas extends Model
 
         return $results;
     }
+
+    public function getSender ($sender)
+    {
+        return $this->where('id', $sender)
+            ->get()
+            ->first();
+    }
+
 }

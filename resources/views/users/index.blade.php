@@ -7,21 +7,13 @@
     <section class="content">
         <div class="card-body">
             <div class="row">
-                <div class="form-group col-lg-6">
-                    <a class="small-box bg-info text-center" style="padding: 12px 0 10px 0" href="{{route('recipientes.create')}}">
-                            
-                                <h4>Cadastre um novo Recipiente
-                            <i class="fa fa-vial"></i>
-                            </h4>
-                    </a>
-                </div>
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="small-box text-center" style="padding: 10px">
-                        <form action="{{ route('recipientes.search') }}" method="post">
+                        <form action="{{ route('users.search') }}" method="post">
                             @csrf
                             <div class="input-group">
                                 <input type="text" name="filter" class="form-control rounded-0" 
-                                    placeholder="Digite o nome do recipiente..." value="{{$filters['filter']??null}}">
+                                    placeholder="Digite o nome do cliente..." value="{{$filters['filter']??null}}">
                                 <span class="input-group-append">
                                 <button type="submit" class="btn btn-info btn-flat">Pesquisar!</button>
                                 </span>
@@ -35,7 +27,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Lista de Recipientes</h3>
+            <h3 class="card-title">Lista de Usuários / Funcionários</h3>
 
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -46,49 +38,37 @@
             <table class="table table-striped projects">
                 <thead>
                     <tr>
-                        <th style="width: 1%">
+                        <th>
                             Número
                         </th>
-                        <th style="width: 15%">
+                        <th>
                             Nome
                         </th>
-                        <th style="width: 2%">
-                            Quantidade
+                        <th>
+                            Email
                         </th>
-                        <th style="width: 20%">
-                            Observação
-                        </th>
-                        <th style="width: 15%">
+                        <th>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($recipientes as $key => $value)
+                    @foreach ($users as $key => $value)
                     <tr>
                         <td>
                             {{$value['id']}}
                         </td>
                         <td>
                             <a>
-                                {{$value['nome']}}
+                                {{$value['name']}}
                             </a>
                         </td>
                         <td >
                             <a>
-                                {{$value['quant']}}
-                            </a>
-                        </td>
-                        <td >
-                            <a>
-                                {{$value['observacao']}}
+                                {{$value['email']}}
                             </a>
                         </td>
                         <td class="project-actions text-right">
-                            <a class="btn btn-warning btn-sm" href="{{route('recipientes.edit', $value['id'])}}">
-                                <i class="fas fa-pencil-alt"></i>
-                                Editar
-                            </a>
-                            <a class="btn btn-danger btn-sm" href="{{route('recipientes.destroy', $value['id'])}}">
+                            <a class="btn btn-danger btn-sm" href="{{route('users.destroy', $value['id'])}}">
                                 <i class="fas fa-trash">
                                 </i>
                                 Deletar

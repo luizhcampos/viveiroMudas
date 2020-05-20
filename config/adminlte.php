@@ -234,6 +234,22 @@ return [
             ],*/
         ],
         [
+            'text' => 'Pessoas',
+            'icon' => 'fas fa-users',
+            'submenu' => [
+                [
+                    'text' => 'Clientes',
+                    'url'  => 'clientes',
+                    'icon' => 'fas fa-user-plus'
+                ],
+                [
+                    'text' => 'Funcionários',
+                    'url'  => 'users',
+                    'icon' => 'fas fa-users-cog'
+                ],
+            ],
+        ],
+        [
             'text' => 'Recipientes',
             'url'  => 'recipientes',
             'icon' => 'fas fa-vial',

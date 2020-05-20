@@ -24,7 +24,7 @@ class SementesController extends Controller
     public function index()
     {
         $sementes = Sementes::paginate();
-        $totalSementes = $this->repository->where('quant', '>', 0)->count();
+        $totalSementes = $this->repository->where('quant_total', '>', 0)->count();
         return view ('sementes.index', [
             'sementes' => $sementes, 
             'totalSementes' => $totalSementes
@@ -82,7 +82,7 @@ class SementesController extends Controller
     {
         if (!$sementes = Sementes::find($id))
             return redirect()->back();
-            
+
         return view ('sementes.edit', compact('sementes'));
     }
 
@@ -98,9 +98,20 @@ class SementesController extends Controller
         if (!$sementes = Sementes::find($id))
             return redirect()->back();
 
-        $sementes->update($request->all());
-
-        return redirect()->route('sementes.index');
+        if ($sementes->update($request->all()))
+        {
+            return redirect()
+                ->route('sementes.index')
+                ->with('success', 'Cadastro Realizado com Sucesso!');
+        }
+        else
+        {
+            //return redirect()->route('sementes.edit', compact($id));
+            return redirect()
+                ->back()
+                ->with('error', 'Falha ao Cadastrar!')
+                ->withInput();
+        }
     }
 
     /**
@@ -111,6 +122,8 @@ class SementesController extends Controller
      */
     public function destroy($id)
     {
+
+        dd('deleteando');
         if (!$sementes = Sementes::find($id))
             return redirect()->back();
 
@@ -124,7 +137,7 @@ class SementesController extends Controller
         
         $sementes = $this->repository->search($request->filter);
         
-        $totalSementes = $this->repository->where('quant', '>', 0)->count();
+        $totalSementes = $this->repository->where('quant_total', '>', 0)->count();
 
         $filters = $request->except('_token');
 

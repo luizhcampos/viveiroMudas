@@ -1,16 +1,20 @@
 <div class="card-body">
     <div class="row">
-        <div class="col-5">
+        <div class="col-4">
             <label>Nome Popular</label>
             <input class="form-control" type="text" name="nomePopular" placeholder="Obrigatório" required="ON" value="{{$sementes->nomePopular ?? old('nomePopular')}}">
         </div>
-        <div class="col-5">
+        <div class="col-4">
             <label>Nome Científico</label>
             <input class="form-control" type="text" name="nomeCientifico" placeholder="Opcional" value="{{$sementes->nomeCientifico ?? old('nomeCientifico')}}">
         </div>
         <div class="col-md-2">
-            <label>Quantidade</label>
-            <input class="form-control" type="number" name="quant" placeholder="Obrigatório" required="ON" value="{{$sementes->quant ?? old('quant')}}">
+            <label>Peso 100 Un. em Kg</label>
+            <input class="form-control" type="number" step="0.01" name="peso_100" placeholder="Opcional" value="{{$sementes->peso_100 ?? old('peso_100')}}">
+        </div>
+        <div class="col-md-2">
+            <label>Peso em KG</label>
+            <input class="form-control" type="number" step="0.01" name="quant_total" placeholder="Opcional" value="{{$sementes->quant_total ?? old('quant_total')}}">
         </div>
     </div>
 </div>
@@ -36,6 +40,6 @@
     <input class="form-control" max="1000" type="text" name="observacao" placeholder="Opcional" value="{{$sementes->observacao ?? old('observacao')}}">
 </div>
 <div class="card-body">
-    <button type="submit" class="btn btn-block btn-outline-success btn-lg">Salvar</button>
+    <button type="submit" id="salvar" class="btn btn-block btn-outline-success btn-lg">Salvar</button>
     <a type="button" href={{route('sementes.index')}} class="btn btn-block btn-outline-danger btn-lg">Cancelar</a>
 </div>

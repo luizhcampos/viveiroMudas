@@ -1,15 +1,14 @@
 @extends('adminlte::page')
 
 @section('content')
-
-<form action="{{ route ('sementes.update', $sementes->id)}}" method="post">
-    @method('PUT')
+    
+<form action="{{ route ('clientes.store') }}" method="post">
     @csrf
     <div class="card card-default">
         <div class="card-header">
-          <h3 class="card-title">Edição do Registro da Semente " {{$sementes->nomePopular}} " </h3>
+          <h3 class="card-title">Cadastro de Clientes</h3>
         </div>
-        @include('sementes.formBasic')
+        @include('clientes.formBasic')
     </div>
 </form>
 

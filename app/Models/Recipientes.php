@@ -19,4 +19,11 @@ class Recipientes extends Model
 
         return $results;
     }
+
+    public function getSender ($sender)
+    {
+        return $this->where('id', $sender)
+            ->get()
+            ->first();
+    }
 }

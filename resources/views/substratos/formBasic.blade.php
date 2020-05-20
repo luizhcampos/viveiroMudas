@@ -5,11 +5,11 @@
             <input class="form-control" type="text" name="nome" placeholder="Obrigatório" required="ON" value="{{$substratos->nome ?? old('nome')}}">
         </div>
         <div class="col-md-2">
-            <label>Quantidade</label>
-            <input class="form-control" type="number" name="quant" placeholder="Obrigatório" required="ON" value="{{$substratos->quant ?? old('quant')}}">
+            <label>Quant. M³</label>
+            <input class="form-control" type="number"  step="0.01"  name="quant" placeholder="Opcional" value="{{$substratos->quant ?? old('quant')}}">
         </div>
         <div class="col-md-3">
-            <label>Início da Maturação</label>
+            <label>Data do Cadastro</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
@@ -22,7 +22,7 @@
 </div>
 <div class="card-body">
         <label>Compostos Utilizados</label>
-        <input class="form-control" rows="3" type="text" name="composto" placeholder="Obrigatório" required="ON" value="{{$substratos->composto ?? old('composto')}}">
+        <input class="form-control" rows="3" type="text" name="composto" placeholder="Opcional" value="{{$substratos->composto ?? old('composto')}}">
 </div>
 <div class="card-body">
     <label>Observação</label>

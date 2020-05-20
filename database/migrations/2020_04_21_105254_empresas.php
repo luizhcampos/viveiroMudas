@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubstratosTable extends Migration
+class Empresas extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,18 @@ class CreateSubstratosTable extends Migration
      */
     public function up()
     {
-        Schema::create('substratos', function (Blueprint $table) {
+        Schema::create('empresas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
-            $table->string('composto')->nullable();
-            $table->double('quant', 10,2)->nullable();
+            $table->string('CNPJ')->nullable();
+            $table->integer('quantProducao');
+            $table->string('rua');
+            $table->string('bairro');
+            $table->string('cidade');
+            $table->string('cep');
+            $table->integer('num');
+            $table->string('uf');
             $table->string('observacao')->nullable();
-            $table->date('inicioMaturacao')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +36,6 @@ class CreateSubstratosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('substratos');
+        //
     }
 }

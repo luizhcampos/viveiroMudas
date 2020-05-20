@@ -2,22 +2,24 @@
 
 @section('content')
     
-<form action="{{ route ('mudas.update',$mudas->id)}}" method="post">
-    @method('PUT')
-    @csrf
-    @if(session()->has('stStatus'))
-    <div class="@if(session()->get('stStatus')->stStatus){{'alert alert-sucess'}}@else{{'alert alert-error'}}@endif">
-        <p>{{$stStatus->message}}</p>
-    </div>
-    @endif
-    <div class="card card-default">
-        <div class="card-header">
-          <h3 class="card-title">Edição do Registro da Muda " {{$mudas->nomePopular}} " </h3>
+    <form action="{{ route ('mudas.update', $mudas->id)}}" method="post">
+        @method('PUT')
+        @csrf
+        @if($errors->all())
+            @foreach ($errors as $error)
+            <div class="alert alert-danger" role="alert">
+                {{$error}}
+            </div>
+            @endforeach
+        @endif
+        <div class="card card-default">
+            <div class="card-header">
+            <h3 class="card-title">Edição do Registro da Muda " {{$mudas->nomePopular}} " </h3>
+            </div>
+            @include('mudas.formBasic')
         </div>
-        @include('mudas.formBasic')
-    </div>
-    
-</form>
+        
+    </form>
 
 @stop
 

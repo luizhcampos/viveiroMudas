@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sementes extends Model
 {
-    protected $fillable = ['nomePopular', 'nomeCientifico', 'quant', 'observacao', 'localColeta', 'dataColeta'];
+    protected $fillable = ['nomePopular', 'nomeCientifico', 'quant_total', 'peso_100', 'observacao', 'localColeta', 'dataColeta'];
 
     public function Search ($filter = null){
         
@@ -19,6 +19,13 @@ class Sementes extends Model
         ->paginate();
 
         return $results;
+    }
+    
+    public function getSender ($sender)
+    {
+        return $this->where('id', $sender)
+            ->get()
+            ->first();
     }
 
 }

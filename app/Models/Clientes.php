@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Dotenv\Result\Result;
 use Illuminate\Database\Eloquent\Model;
 
-class Substratos extends Model
+class Clientes extends Model
 {
-    protected $fillable = ['nome', 'composto', 'quant', 'observacao', 'inicioMaturacao'];
+    protected $fillable = ['nome', 'CPF', 'dataNasc', 'sexo', 'rua', 'bairro', 'cidade', 'cep','num', 'uf'];
 
     public function Search ($filter = null){
         
@@ -20,12 +19,4 @@ class Substratos extends Model
 
         return $results;
     }
-
-    public function getSender ($sender)
-    {
-        return $this->where('id', $sender)
-            ->get()
-            ->first();
-    }
-
 }

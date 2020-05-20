@@ -23,3 +23,11 @@ Route::any('recipientes/search', 'RecipientesController@search')->name('recipien
 
 Route::resource('mudas', 'MudasController');
 Route::any('mudas/search', 'MudasController@search')->name('mudas.search');
+Route::get('muda/{idMuda}', 'MudasController@getMudas');
+Route::any('mudas/moverMuda/{id}', 'MudasController@moverMuda')->name('mudas.moverMuda');
+
+Route::any('users/search', 'UsersController@search')->name('users.search');
+Route::resource('users', 'UsersController');
+
+Route::any('clientes/search', 'ClientesController@search')->name('clientes.search');
+Route::resource('clientes', 'ClientesController');
