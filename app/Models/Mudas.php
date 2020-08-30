@@ -28,4 +28,5 @@ class Mudas extends Model
             ->first();
     }
 
+
 }

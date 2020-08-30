@@ -19,5 +19,16 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+<script src="sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+<script>
+    document.getElementById("salvar").onclick = function (){
+        alert('Teste Salvando');
+        Swal.fire(
+            'Good job!',
+            'You clicked the button!',
+            'success'
+            )
+    }
+</script>
 @stop

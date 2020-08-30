@@ -102,9 +102,15 @@ class RecipientesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deletar($id)
     {
-        //
+
+        if (!$recipientes = Recipientes::find($id))
+            return redirect()->back();
+
+        $recipientes->delete();
+
+        return redirect()->route('recipientes.index');
     }
 
     public function search (Request $request, Recipientes $recipientes)

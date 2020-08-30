@@ -2,11 +2,49 @@
 
 @section('js')
     <script>
-        $(document).on('click', '.view_data', function () {
-            var id = $(this).attr("id");
+        
+/*
+        $('#enviarMovimento').on('click', function (event){
+            event.preventDefault();
+            var id = $('#id').val();
+            //alert('Teste de Movimento!' + id);
+
+            $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+
             if (id != '') {
+                
+                $.ajax(
+                    {
+                        method: 'POST',
+                        url: 'muda/moverMuda',
+                        dataType: 'JSON',
+                        data: {
+                            id: $('#id').val(),
+                            blocoPlantio: $('#blocoPlantio').val(),
+                            canteiroPlantio: $('#canteiroPlantio').val(),
+                            dataAtualizacao: $('#dataAtualizacao').val(),
+                            estagioMuda: $('#estagioMuda').val(),
+                            idRecipientes: $('#idRecipientes').val()
+                        }
+                    });
+
+                    alert($('#blocoPlantio').val());
+            }
+        });
+
+        */
+
+        $(document).on('click', '.view_data', function () {
+            event.preventDefault();
+            var id = $(this).attr("id");
+            if (id != 'enviarMovimento'){
                 $.ajax({
-                    url: 'muda/'+id,
+                    url: 'buscar/'+id,
                     type: 'GET',
                     dataType:'JSON',
                     success: function (data) {
@@ -20,23 +58,49 @@
                 });
             }
         });
-    </script>
-    <script>
-        $(document).on('click', '#moverMuda', function moverMuda(){
-            $.ajax({
-                datatype: 'json',
-                contentType: "application/json; charset=utf-8",
-                type: "POST",
-                data: JSON.stringify(resultado), // passe simplesmente o JSON serializado em string
-                success: function (data) {
-                    alert('Login realizado com sucesso!!');
-                }
-            });
+
+        $('#enviarMovimento').on('click', function (event){
+            event.preventDefault();
+            var id = $('#id').val();
+            //alert('Teste de Movimento!' + id);
+
+            if (id != '') {
+
+                $.ajaxSetup({
+                    headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });                
+                
+                $.post(
+                    'muda/moverMuda',
+                    {
+                        id: $('#id').val(),
+                        blocoPlantio: $('#blocoPlantio').val(),
+                        canteiroPlantio: $('#canteiroPlantio').val(),
+                        dataAtualizacao: $('#dataAtualizacao').val(),
+                        estagioMuda: $('#estagioMuda').val(),
+                        idRecipientes: $('#idRecipientes').val(),
+                        taxaPerda: $('#taxaPerda').val()
+                    }
+                )
+                .done(function(data) {
+                    alert('Sucesso');
+                })
+                .fail(function(data){
+                    alert('Fail');
+                })
+                ;
+
+            }
         });
+
     </script>
 @stop
 
 @section('content')
+
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!-- Main content -->
     <section class="content">
@@ -93,7 +157,7 @@
                             Data de Plantio
                         </th>
                         <th>
-                            Preço da Mudas
+                            Custo de Produção
                         </th>
                         <th>
                             Local da Muda
@@ -129,7 +193,7 @@
                         </td>
                         <td >
                             <a>
-                                {{ 'R$ ' .$value['precoMuda']}}
+                                {{ 'R$ ' .$value['custoProducao']}}
                             </a>
                         </td>
                         <td >
@@ -154,7 +218,7 @@
                                 <i class="fas fa-pencil-alt"></i>
                                 Editar
                             </a>
-                            <a class="btn btn-danger btn-sm" href="{{route('mudas.destroy', $value['id'])}}">
+                            <a class="btn btn-danger btn-sm" href="{{route('mudas.deletar', $value['id'])}}">
                                 <i class="fas fa-trash">
                                 </i>
                                 Deletar
@@ -165,7 +229,13 @@
                 </tbody>
             </table>
             </div>
-            
+        
+            @if (isset($filters))
+                {!! $mudas->appends($filters)->links() !!}
+            @else
+                {!! $mudas->links() !!}
+            @endif
+                
         </div>
       <!-- /.card -->
     </section>
@@ -175,14 +245,16 @@
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" >Movimentando a Muda 
-                    <!--<input class="form-control-plaintext" id="id" value="id">-->
+                    <input class="form-control-plaintext" id="id" value="id" disabled>
                 </h5> 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" id="moverMudas">
+                    <form id="movendoMudas" action="{{ route ('muda.moverMuda')}}">
+                        @method('PUT')
+                        @csrf
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Estágio:</label>
@@ -262,7 +334,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            <a id='moverMuda' type="submit" class="btn btn-primary" href="{{route('mudas.moverMuda', $value['id'])}}">Enviar</a>
+                            <button id="enviarMovimento" class="btn btn-primary view_data">Enviar</button>
                         </div>
                     </form> 
                 </div>

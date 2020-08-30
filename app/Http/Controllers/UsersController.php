@@ -102,12 +102,13 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deletar($id)
     {
-        if (!$users = User::find($id))
+        if (!$user = User::find($id))
             return redirect()->back();
 
-        $users->delete();
+        if($user->id != 1)
+            $user->delete();
 
         return redirect()->route('users.index');
     }

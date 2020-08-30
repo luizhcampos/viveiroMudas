@@ -28,5 +28,13 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+<script>
+    function load() {
+       
+        //$('#idRecipientes').val() = $mudas->idRecipientes;
+        
+        var quant = $('#idRecipientes').val();
+        alert(quant);
+    };
+</script>
 @stop

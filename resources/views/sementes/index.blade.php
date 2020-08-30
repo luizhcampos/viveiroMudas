@@ -124,7 +124,7 @@
                             </a>
                         </td>
                         <td>  
-                            <a class="btn btn-danger btn-sm" href="{{route('sementes.destroy', $value['id'])}}">
+                            <a class="btn btn-danger btn-sm" href="{{route('sementes.deletar', $value['id'])}}">
                                 <i class="fas fa-trash">
                                 </i>
                                 Deletar

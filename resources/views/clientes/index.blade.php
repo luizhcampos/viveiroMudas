@@ -88,7 +88,7 @@
                                 <i class="fas fa-pencil-alt"></i>
                                 Editar
                             </a>
-                            <a class="btn btn-danger btn-sm" href="{{route('clientes.destroy', $value['id'])}}">
+                            <a class="btn btn-danger btn-sm" href="{{route('clientes.deletar', $value['id'])}}">
                                 <i class="fas fa-trash">
                                 </i>
                                 Deletar

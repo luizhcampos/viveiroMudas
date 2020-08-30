@@ -99,7 +99,8 @@
         </div>
         <div class="col-md-3">
             <label>Substrato/Recipiente em dm³</label>
-            <input name="volume_Subs_Recip" class="custom-select" type="number" step="0.01" placeholder="Opcional"> 
+            <input name="volume_Subs_Recip" value="{{$mudas->volume_Subs_Recip ?? old('volume_Subs_Recip')}}" 
+            class="custom-select" type="number" step="0.01" placeholder="Opcional"> 
         </div>
         <div class="col-md-2">
             <label>Tipo de Plantio</label>

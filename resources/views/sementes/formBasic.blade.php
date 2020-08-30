@@ -40,6 +40,6 @@
     <input class="form-control" max="1000" type="text" name="observacao" placeholder="Opcional" value="{{$sementes->observacao ?? old('observacao')}}">
 </div>
 <div class="card-body">
-    <button type="submit" id="salvar" class="btn btn-block btn-outline-success btn-lg">Salvar</button>
+    <button id="salvar" class="btn btn-block btn-outline-success btn-lg">Salvar</button>
     <a type="button" href={{route('sementes.index')}} class="btn btn-block btn-outline-danger btn-lg">Cancelar</a>
 </div>

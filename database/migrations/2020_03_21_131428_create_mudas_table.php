@@ -27,11 +27,11 @@ class CreateMudasTable extends Migration
             $table->double('taxaPerda')->nullable();
             $table->date('dataAtualizacao')->nullable();
             $table->integer('idSubstratos')->unsigned()->nullable();
-            $table->foreign('idSubstratos')->references('id')->on('substratos');
+            $table->foreign('idSubstratos')->references('id')->on('substratos')->onDelete('restrict');
             $table->integer('idSementes')->unsigned()->nullable();
-            $table->foreign('idSementes')->references('id')->on('sementes');
+            $table->foreign('idSementes')->references('id')->on('sementes')->onDelete('restrict');
             $table->integer('idRecipientes')->unsigned()->nullable();
-            $table->foreign('idRecipientes')->references('id')->on('recipientes');
+            $table->foreign('idRecipientes')->references('id')->on('recipientes')->onDelete('restrict');
             $table->double('volume_Subs_Recip',10,2)->nullable();
             $table->string('observacao')->nullable();
             $table->timestamps();

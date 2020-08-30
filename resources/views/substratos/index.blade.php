@@ -106,7 +106,7 @@
                                 <i class="fas fa-pencil-alt"></i>
                                 Editar
                             </a>
-                            <a class="btn btn-danger btn-sm" href="{{route('substratos.destroy', $value['id'])}}">
+                            <a class="btn btn-danger btn-sm" href="{{route('substratos.deletar', $value['id'])}}">
                                 <i class="fas fa-trash">
                                 </i>
                                 Deletar
@@ -117,6 +117,12 @@
                 </tbody>
             </table>
             </div>
+            
+            @if (isset($filters))
+                {!! $substratos->appends($filters)->links() !!}
+            @else
+                {!! $substratos->links() !!}
+            @endif
             
         </div>
       <!-- /.card -->

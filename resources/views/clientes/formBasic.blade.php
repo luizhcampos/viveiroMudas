@@ -1,8 +1,8 @@
-<div class="card-body">
+    <div class="card-body">
     <div class="row">
         <div class="col-8">
             <label>Nome / Empresa</label>
-            <input class="form-control" type="text" name="nome" placeholder="Obrigatório" required="ON" value="{{$clientes->nome ?? old('nome')}}">
+            <input id="nome" class="form-control" type="text" name="nome" placeholder="Obrigatório" required="ON" value="{{$clientes->nome ?? old('nome')}}">
         </div>
         <div class="col-md-4">
             <label>CPF / CNPJ</label>

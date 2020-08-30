@@ -263,6 +263,11 @@ return [
             'text' => 'Substratos',
             'url'  => 'substratos',
             'icon' => 'fas fa-feather-alt',
+        ],
+        [
+            'text' => 'Vendas',
+            'url'  => 'vendas',
+            'icon' => "fas fa-search-dollar",
         ],/*
         ['header' => 'labels'],
         [

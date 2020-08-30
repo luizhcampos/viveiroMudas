@@ -88,7 +88,7 @@
                                 <i class="fas fa-pencil-alt"></i>
                                 Editar
                             </a>
-                            <a class="btn btn-danger btn-sm" href="{{route('recipientes.destroy', $value['id'])}}">
+                            <a class="btn btn-danger btn-sm" href="{{route('recipientes.deletar', $value['id'])}}">
                                 <i class="fas fa-trash">
                                 </i>
                                 Deletar
@@ -99,6 +99,12 @@
                 </tbody>
             </table>
             </div>
+
+            @if (isset($filters))
+                {!! $recipientes->appends($filters)->links() !!}
+            @else
+                {!! $recipientes->links() !!}
+            @endif
             
         </div>
       <!-- /.card -->

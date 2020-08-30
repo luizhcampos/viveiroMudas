@@ -108,9 +108,14 @@ class ClientesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deletar($id)
     {
-        //
+        if (!$clientes = Clientes::find($id))
+            return redirect()->back();
+
+        $clientes->delete();
+
+        return redirect()->route('clientes.index');
     }
 
     public function search (Request $request, Clientes $clientes)

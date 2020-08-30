@@ -1,25 +1,21 @@
 @extends('adminlte::page')
 
-@section('content')
+@section('js')
 
+@stop
+
+@section('content')
 
     <!-- Main content -->
     <section class="content">
         <div class="card-body">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="small-box text-center" style="padding: 10px">
-                        <form action="{{ route('users.search') }}" method="post">
-                            @csrf
-                            <div class="input-group">
-                                <input type="text" name="filter" class="form-control rounded-0" 
-                                    placeholder="Digite o nome do cliente..." value="{{$filters['filter']??null}}">
-                                <span class="input-group-append">
-                                <button type="submit" class="btn btn-info btn-flat">Pesquisar!</button>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
+                <div class="form-group col-lg-12">
+                    <a class="small-box bg-info text-center" style="padding: 12px 0 10px 0" href="{{route('vendas.create')}}">
+                                <h4>Cadastre uma nova Venda
+                            <i class="fas fa-search-dollar"></i>
+                            </h4>
+                    </a>
                 </div>
             </div>
         </div>
@@ -27,8 +23,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Lista de Usuários / Funcionários</h3>
-
+            <h3 class="card-title">Lista de Vendas </h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                 <i class="fas fa-minus"></i></button>
@@ -39,36 +34,61 @@
                 <thead>
                     <tr>
                         <th>
-                            Número
+                            N° da Venda
                         </th>
                         <th>
-                            Nome
+                            Documento
                         </th>
                         <th>
-                            Email
+                            Cliente
                         </th>
                         <th>
+                            Funcionário
                         </th>
+                        <th>
+                            Data da Venda
+                        </th>
+                        <th>
+                            Total da Venda
+                        </th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $key => $value)
+                    @foreach ($vendas as $key => $value)
                     <tr>
                         <td>
                             {{$value['id']}}
                         </td>
                         <td>
                             <a>
-                                {{$value['name']}}
+                                {{$value['documento']}}
+                            </a>
+                        </td>
+                        <td>
+                            {{$value['idClientes']}}
+                        </td>
+                        <td>
+                            {{$value['idUsers']}}
+                        </td>
+                        <td >
+                            <a>
+                                @php
+                                echo date_format(new DateTime($value['dataVenda']), "d/m/Y");
+                                @endphp
                             </a>
                         </td>
                         <td >
                             <a>
-                                {{$value['email']}}
+                                {{ 'R$ ' .$value['totalVenda']}}
                             </a>
                         </td>
                         <td class="project-actions text-right">
-                            <a class="btn btn-danger btn-sm" href="{{route('users.deletar', $value['id'])}}">
+                            <a class="btn btn-info btn-sm">
+                                <i class="fas fa-pencil-alt"></i>
+                                Detalhes
+                            </a>
+                            <a class="btn btn-danger btn-sm" >
                                 <i class="fas fa-trash">
                                 </i>
                                 Deletar
@@ -79,19 +99,9 @@
                 </tbody>
             </table>
             </div>
-            
+        
+                
         </div>
       <!-- /.card -->
     </section>
-@Stop
-
-
-
-  
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
-@section('js')
-    <script> console.log('Hi!'); </script>
 @stop
