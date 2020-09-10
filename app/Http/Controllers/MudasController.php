@@ -7,8 +7,10 @@ use App\Models\Mudas;
 use App\Models\Recipientes;
 use App\Models\Sementes;
 use App\Models\Substratos;
+use Dotenv\Result\Success;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use PhpParser\Node\Expr\BinaryOp\BooleanAnd;
 use PHPUnit\Framework\Error\Error;
 use stdClass;
@@ -76,7 +78,7 @@ class MudasController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Recipientes $recipientes, Sementes $sementes, Substratos $substratos)
+    public function store(RequestMudas $request, Recipientes $recipientes, Sementes $sementes, Substratos $substratos)
     {
         $data = $request->all();
 
@@ -143,7 +145,7 @@ class MudasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, Recipientes $recipientes, Sementes $sementes, Substratos $substratos)
+    public function update(RequestMudas $request, $id, Recipientes $recipientes, Sementes $sementes, Substratos $substratos)
     { 
 
         if (!$mudas = Mudas::find($id))
@@ -220,21 +222,26 @@ class MudasController extends Controller
     }
 
     public function moverMuda (Request $request)
-    {
-        dd($request);
+    {       
+        if (!$mudas = Mudas::find($request->id))
+            return redirect()->back();
         
-        $mudas = $this->repository->paginate();
-
         $Recipientes = Recipientes::all();
         $Substratos = Substratos::all();
         $Sementes = Sementes::all();
-
-        return view ('mudas.index', [
-            'mudas' => $mudas,
-            'Recipientes' => $Recipientes,
-            'Substratos' => $Substratos,
-            'Sementes' => $Sementes,
-            ]);
+         
+        if (Mudas::where('id', $request->id)->update([
+            'blocoPlantio'   =>($request->blocoPlantio),
+            'taxaPerda'      =>($request->taxaPerda),
+            'canteiroPlantio'=>($request->canteiroPlantio),
+            'dataAtualizacao'=>($request->dataAtualizacao),
+            'estagioMuda'    =>($request->estagioMuda),
+            'idRecipientes'  =>($request->idRecipientes),
+        ])
+        ) {
+            $mudas = $this->repository->paginate();
+            return response()->json(array('success' => true));
+        }
     }
 
     public function atualizaRecipiente($request, $recipientes, $mudas)

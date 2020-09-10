@@ -44,10 +44,10 @@ class SubstratosController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\RequestSubstratos  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RequestSubstratos $request)
     {
         $data = $request->all();
 
@@ -84,11 +84,11 @@ class SubstratosController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\RequestSubstratos  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RequestSubstratos $request, $id)
     {
         if (!$substratos = Substratos::find($id))
             return redirect()->back();
@@ -106,12 +106,23 @@ class SubstratosController extends Controller
      */
     public function deletar($id)
     {
-        if (!$substratos = Substratos::find($id))
-            return redirect()->back();
 
-        $substratos->delete();
+        dd($id);
+    if (!$substratos = Substratos::find($id))
+        return redirect()->back();
+        
+    $delete = $substratos->delete();
 
-        return redirect()->route('substratos.index');
+
+    if ($delete)
+        return redirect()
+                    ->route('substratos.index')
+                    ->with('success', 'Substrato deletado com sucesso!');
+ 
+    // Redireciona de volta com uma mensagem de erro
+    return redirect()
+                ->back()
+                ->with('error', 'Falha ao deletar Substratos!');
     }
 
     public function search (Request $request, Substratos $substrato)

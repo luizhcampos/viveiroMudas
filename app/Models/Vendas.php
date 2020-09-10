@@ -17,4 +17,17 @@ class Vendas extends Model
 
         return $results;
     }
+    
+    protected $fillable = ['documento', 'precoTotalVenda', 'data', 'idClientes', 'idUsers'];
+
+    public function itens_vendas()
+    {
+        return $this->hasMany('Vendas\ItensVendas',
+                                    'idMudas', 
+                                    'idVenda',  
+                                    'quant', 
+                                    'precoUn', 
+                                    'precoTotal');
+    }
+
 }

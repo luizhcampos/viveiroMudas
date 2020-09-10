@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Clientes;
 use Illuminate\Http\Request;
+use App\Http\Requests\RequestClientes;
 
 class ClientesController extends Controller
 {
@@ -44,10 +45,10 @@ class ClientesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\RequestClientes  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RequestClientes $request)
     {
         $data = $request->all();
 
@@ -88,11 +89,11 @@ class ClientesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\RequestClientes  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RequestClientes $request, $id)
     {
         if (!$clientes = Clientes::find($id))
             return redirect()->back();

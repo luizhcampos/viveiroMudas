@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-7">
             <label>Nome</label>
-            <input class="form-control" type="text" name="nome" placeholder="Obrigatório" required="ON" value="{{$substratos->nome ?? old('nome')}}">
+            <input class="form-control" type="text" name="nome" placeholder="Obrigatório" value="{{$substratos->nome ?? old('nome')}}">
         </div>
         <div class="col-md-2">
             <label>Quant. M³</label>

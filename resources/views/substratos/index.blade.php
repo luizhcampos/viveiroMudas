@@ -106,11 +106,12 @@
                                 <i class="fas fa-pencil-alt"></i>
                                 Editar
                             </a>
-                            <a class="btn btn-danger btn-sm" href="{{route('substratos.deletar', $value['id'])}}">
+                            
+                            <button id="delete" class="btn btn-danger btn-sm" onclick="deleteItem({{$value['id']}})">
                                 <i class="fas fa-trash">
                                 </i>
                                 Deletar
-                            </a>
+                            </button>
                         </td>
                     </tr>
                     @endforeach
@@ -129,13 +130,21 @@
     </section>
 @Stop
 
-
-
-  
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
 @section('js')
-    <script> console.log('Hi!'); </script>
+<script>
+    function deleteItem(id) {
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({ 
+            type: "POST", 
+            url:'substratos/deletar/'+ id,  
+            success: function(result) {
+                alert("Muda Deletada com Sucesso!");
+                }
+        });          
+    }
+</script>
 @stop

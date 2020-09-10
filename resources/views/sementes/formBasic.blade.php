@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-4">
             <label>Nome Popular</label>
-            <input class="form-control" type="text" name="nomePopular" placeholder="Obrigatório" required="ON" value="{{$sementes->nomePopular ?? old('nomePopular')}}">
+            <input class="form-control" type="text" name="nomePopular" placeholder="Obrigatório" value="{{$sementes->nomePopular ?? old('nomePopular')}}">
         </div>
         <div class="col-4">
             <label>Nome Científico</label>

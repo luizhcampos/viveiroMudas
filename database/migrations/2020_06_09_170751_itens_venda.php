@@ -13,7 +13,7 @@ class ItensVenda extends Migration
      */
     public function up()
     {
-        Schema::create('itensVenda', function (Blueprint $table) {
+        Schema::create('itens_vendas', function (Blueprint $table) {
             $table->increments('id');
             
             $table->integer('idMudas')->unsigned()->nullable();
@@ -22,7 +22,6 @@ class ItensVenda extends Migration
             $table->integer('idVenda')->unsigned()->nullable();
             $table->foreign('idVenda')->references('id')->on('vendas')->onDelete('restrict');
 
-            $table->string('descricao');
             $table->integer('quant');
             $table->double('precoUn',10,2);
             $table->double('precoTotal',10,2);

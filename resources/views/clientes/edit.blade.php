@@ -2,8 +2,17 @@
 
 @section('content')
     
-<form action="{{ route ('clientes.update', $clientes->id)}}" method="post">
+<form id="formulario" action="{{ route ('clientes.update', $clientes->id)}}" method="post">
     @method('PUT')
+    @if($errors->any())
+    @foreach ($errors->all() as $error)
+        <div class="alert alert-danger" role="alert">
+            {{$error}}
+        </div>
+    @endforeach 
+    @elseif(session()->has('success')) 
+        {{ session('success') }}
+    @endif
     @csrf
     <div class="card card-default">
         <div class="card-header">
@@ -20,5 +29,7 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script> 
+
+    </script>
 @stop

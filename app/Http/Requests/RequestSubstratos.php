@@ -27,8 +27,8 @@ class RequestSubstratos extends FormRequest
 
         return [
             'nome' => "required|min:3|max:255",
-            'quant' => 'required',
-            'composto' => "required|min:3|max:1000",
+            'quant' => 'nullable|min:0',
+            'composto' => "nullable|min:3|max:1000",
             'observacao' => 'nullable|min:1|max:10000',
             'inicioMaturacao' => 'nullable', //regex de data
         ];
@@ -39,8 +39,6 @@ class RequestSubstratos extends FormRequest
         return[
             'nome.required' => 'Nome Obrigatório!',
             'nome.min' => 'Ops! Nome deve ser maior que 3 caracteres!',
-            'quant' => 'Quantidade Obrigatória!',
-            'composto.required' => 'Digite os compostos Utilizados!',
         ];
     }
 }

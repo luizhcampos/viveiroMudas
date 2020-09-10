@@ -41,12 +41,12 @@
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3>150</h3>
+                <h3>{{$mudas->count()}}</h3>
   
                   <p>Espécies Plantadas</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-bag"></i>
+                  <i class="fab fa-canadian-maple-leaf"></i>
                 </div>
                 <a href="mudas" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
               </div>
@@ -56,13 +56,13 @@
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>53<sup style="font-size: 20px">%</sup></h3>
-                  <p>Taxa de Aproveitamento</p>
+                  <h3>{{$vendas->count()}}<!--<sup style="font-size: 20px">%</sup>--></h3>
+                  <p>Vendas Realizadas</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-chart-bar"></i>
                 </div>
-                <a href="mudas" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="vendas" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -70,14 +70,14 @@
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>10000</h3>
+                  <h3>{{$empresas[0]->quantProducao}}</h3>
   
                   <p>Capacitade de Procução</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-person-add"></i>
+                  <i class="fas fa-chart-line"></i>
                 </div>
-                <a href="#" class="small-box-footer">Mais Informações<i class="fas fa-arrow-circle-right"></i></a>
+                <a href="mudas" class="small-box-footer">Mais Informações<i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -85,14 +85,14 @@
               <!-- small box -->
               <div class="small-box bg-danger">
                 <div class="inner">
-                  <h3>65</h3>
+                <h3>{{$clientes->count()}}</h3>
   
                   <p>Clientes</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-pie-graph"></i>
+                  <i class="fas fa-user-check"></i>
                 </div>
-                <a href="#" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="clientes" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->

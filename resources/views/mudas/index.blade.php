@@ -1,20 +1,19 @@
 @extends('adminlte::page')
 
 @section('js')
+<!-- Include a required theme -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
-        
-/*
+
         $('#enviarMovimento').on('click', function (event){
             event.preventDefault();
             var id = $('#id').val();
-            //alert('Teste de Movimento!' + id);
 
             $.ajaxSetup({
                 headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            
 
             if (id != '') {
                 
@@ -26,18 +25,32 @@
                         data: {
                             id: $('#id').val(),
                             blocoPlantio: $('#blocoPlantio').val(),
+                            taxaPerda: $('#taxaPerda').val(),
                             canteiroPlantio: $('#canteiroPlantio').val(),
                             dataAtualizacao: $('#dataAtualizacao').val(),
                             estagioMuda: $('#estagioMuda').val(),
-                            idRecipientes: $('#idRecipientes').val()
+                            idRecipientes: $('#idRecipientes').val(),
+                        },        
+                        success: function(data) {
+                            $('#moverMudas').modal('hide');       
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: 'Muda Movimentada com Sucesso!',
+                                showConfirmButton: false,
+                                timer: 1500,
+                                onClose: () => {    
+                                    window.location.reload()
+                                    }
+                            });
+                        },
+                        error: function(xhr,textStatus,thrownError) {
+                            alert(xhr + "\n" + textStatus + "\n" + thrownError);
                         }
                     });
-
-                    alert($('#blocoPlantio').val());
             }
         });
 
-        */
 
         $(document).on('click', '.view_data', function () {
             event.preventDefault();
@@ -50,48 +63,14 @@
                     success: function (data) {
                         $('#id').val(data.id);
                         $('#blocoPlantio').val(data.blocoPlantio);
+                        $('#taxaPerda').val(data.taxaPerda);
                         $('#canteiroPlantio').val(data.canteiroPlantio);
+                        $('#dataAtualizacao').val(data.dataAtualizacao);
                         $('#estagioMuda').val(data.estagioMuda);
                         $('#idRecipientes').val(data.idRecipientes);
                         $('#moverMudas').modal('show');
                     }
                 });
-            }
-        });
-
-        $('#enviarMovimento').on('click', function (event){
-            event.preventDefault();
-            var id = $('#id').val();
-            //alert('Teste de Movimento!' + id);
-
-            if (id != '') {
-
-                $.ajaxSetup({
-                    headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });                
-                
-                $.post(
-                    'muda/moverMuda',
-                    {
-                        id: $('#id').val(),
-                        blocoPlantio: $('#blocoPlantio').val(),
-                        canteiroPlantio: $('#canteiroPlantio').val(),
-                        dataAtualizacao: $('#dataAtualizacao').val(),
-                        estagioMuda: $('#estagioMuda').val(),
-                        idRecipientes: $('#idRecipientes').val(),
-                        taxaPerda: $('#taxaPerda').val()
-                    }
-                )
-                .done(function(data) {
-                    alert('Sucesso');
-                })
-                .fail(function(data){
-                    alert('Fail');
-                })
-                ;
-
             }
         });
 
@@ -252,8 +231,7 @@
                 </button>
                 </div>
                 <div class="modal-body">
-                    <form id="movendoMudas" action="{{ route ('muda.moverMuda')}}">
-                        @method('PUT')
+                    <form id="movendoMudas">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">
@@ -318,8 +296,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Taxa de Perda em %:</label>
-                                <input class="form-control" type="number" min="1" max="100" name="taxaPerda" placeholder="Obrigatório" 
-                                    value="{{$mudas->taxaPerda ?? old('taxaPerda')}}" required='ON'>
+                                <input id="taxaPerda" class="form-control" type="number" min="1" max="100" name="taxaPerda"
+                                 placeholder="Obrigatório" value="{{$mudas->taxaPerda ?? old('taxaPerda')}}" required='ON'>
                             </div>
                             <div class="col-md-6">
                                 <label>Data da Atualização:</label>

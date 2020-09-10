@@ -3,6 +3,17 @@
 @section('content')
     
 <form action="{{ route ('sementes.store') }}" method="post">
+    @if($errors->any())
+    @foreach ($errors->all() as $error)
+        <div class="alert alert-danger" role="alert">
+            {{$error}}
+        </div>
+    @endforeach 
+    @elseif(session()->has('success')) 
+        <div id="msg" class="alert alert-sucess">                
+            <p>{{$st->message}}</p>
+        </div>
+    @endif
     @csrf
     <div class="card card-default">
         <div class="card-header">
@@ -19,16 +30,5 @@
 @stop
 
 @section('js')
-<script src="sweetalert2.all.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
-<script>
-    document.getElementById("salvar").onclick = function (){
-        alert('Teste Salvando');
-        Swal.fire(
-            'Good job!',
-            'You clicked the button!',
-            'success'
-            )
-    }
-</script>
+
 @stop

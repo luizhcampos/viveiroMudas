@@ -4,6 +4,17 @@
     
 <form action="{{ route ('substratos.update', $substratos->id)}}" method="post">
     @method('PUT')
+    @if($errors->any())
+    @foreach ($errors->all() as $error)
+        <div class="alert alert-danger" role="alert">
+            {{$error}}
+        </div>
+    @endforeach 
+    @elseif(session()->has('success')) 
+        <div id="msg" class="alert alert-sucess">                
+            <p>{{$st->message}}</p>
+        </div>
+    @endif
     @csrf
     <div class="card card-default">
         <div class="card-header">

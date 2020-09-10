@@ -2,7 +2,9 @@
 
 @section('content')
 
-<div class="form-horizontal">
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+<form id='vendas' class="form-horizontal">
+    
     <div class="card col-md-12">
         <div class="card-title">
                 <i class="fas fa-globe"></i> {{$empresas->nome}}
@@ -16,7 +18,7 @@
                 <div class="row">  
                     <div class="col-md-3">
                         <label>Cliente</label>
-                        <select name="idClientes" class="custom-select" placeholder="Opcional">
+                        <select id="idClientes" name="idClientes" class="custom-select" placeholder="Opcional">
                             <option value=""></option>   
                             @foreach ($clientes as $c)
                             <option @if($c->id ?? '' == $c->id) selected  @endif
@@ -30,7 +32,8 @@
                     </div>
                     <div class="col-md-3">
                         <label>Funcionário da Venda</label>
-                        <input id="func" name="func" value="{{$user->name }}" type="text" class="form-control input-md" disabled>
+                        <input id="idUsersNome" name="idUsersNome" value="{{$user->name}}" type="text" class="form-control input-md" disabled>
+                        <input id="idUsers" name="idUsers" value="{{$user->id}}" type="text" class="form-control input-md" disabled hidden>
                     </div>
                     <div class="col-md-3">
                         <label>Total a ser Pago</label>
@@ -42,6 +45,7 @@
 
     </div>
     <div class="card col-md-12">
+        <!--
         <div class="card-header">
             <h3 class="card-title">Lista de Mudas </h3>
             <br>
@@ -57,9 +61,9 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> -->
         <div class="card-body p-0 text-center">
-            <table class="table table-striped projects">
+            <table id="tabelaVendas" class="table table-striped projects">
                 <thead>
                     <tr>
                         <th>
@@ -69,7 +73,7 @@
                             Nome
                         </th>
                         <th>
-                            Quantidade
+                            Estoque
                         </th>
                         <th>
                             Data de Plantio
@@ -94,10 +98,12 @@
                         </th>
                     </tr>
                 </thead>
+                <form id="vendas1">
                 <tbody>
                     @foreach ($mudas ?? '' as $key => $value)
                     <tr>
                         <td>
+                            <input disabled hidden id="id{{$key}}" data-id="{{$key}}">
                             {{$value['id']}}
                         </td>
                         <td>
@@ -107,7 +113,7 @@
                         </td>
                         <td >
                             <a>
-                                {{$value['quantMudas']}}
+                                {{$value['quant']}}
                             </a>
                         </td>
                         <td >
@@ -136,17 +142,21 @@
                             </a>
                         </td>
                         <td >
-                            <input class="form-control calc" type="number" name="quant" id="quant" data-id="{{$value['id']}}">
+                            <input class="form-control quant" type="number" onchange="calculaValor(this)" 
+                            id="quant{{$value['id']}}" min="0" data-id="{{$value['id']}}">
                         </td>
                         <td >
-                            <input class="form-control calc" value="0" type="number" name="precoUn" id="precoUn" data-id="{{$value['id']}}" step="0.01" onfocus="this.value=''" >
+                            <input class="form-control calc" type="number" name="precoUn" onchange="calculaValor(this)"
+                            id="precoUn{{$value['id']}}" min="0" step="0.01"  data-id="{{$value['id']}}" >
                         </td>
                         <td>
-                            <input id="totalItem" name="totalItem" type="text" class="form-control input-md" data-id="{{$value['id']}}" disabled>
+                            <input id="totalItem{{$value['id']}}" name="totalItem" type="text" class="form-control input-md"
+                            disabled onchange="calculaValorTotal()">
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
+            </form>
             </table>
         </div> 
 
@@ -156,36 +166,129 @@
         </div> 
 
     </div>
-</div>
+</form>
 
 @Stop
 
 @section('js')
-<script>
-    
-    document.getElementById("quant").onchange = function() {
-        calculaValor()
-        };
-    document.getElementById("precoUn").onchange = function() {
-        calculaValor()
-        };
 
-    function calculaValor() {
-        var quant = $('#quant').val();
-        var preco = $('#precoUn').val();
-        var total = parseInt(quant)* parseInt(preco);
-        $('#totalItem').val(total);
-        calculaValorTotal();
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+
+    function calculaValor($this) {
+
+        //Pega um json com todas as Mudas do Banco
+        var Mudas = {!! json_encode($mudas, JSON_FORCE_OBJECT) !!};
+        var dataId = $this.getAttribute('data-id');
+        
+        if($('#quant'+dataId).val() < 0)
+        {
+            $('#quant'+dataId).val(0); 
+        }
+        if($('#precoUn'+dataId).val() < 0)
+        {
+            $('#precoUn'+dataId).val(0); 
+        }
+
+        for (key in Mudas) {
+            if(Mudas[key].id == dataId){
+                if(($('#quant'+dataId).val() != '') && ($('#precoUn'+dataId).val() != '')) {
+                    var quant = $('#quant'+dataId).val();
+                    var preco = $('#precoUn'+dataId).val();
+                    var total = parseInt(quant)* parseFloat(preco);
+                    
+                    $('#totalItem'+dataId).val(total);
+                }
+            }
+        }
     }
 
-    function calculaValorTotal(){
-        var totalVenda = 5000;
-        $('#valorVenda').val(totalVenda);
-       // data.forEach('#valorVenda' => {
-       //     totalVenda += '#totalItem'
-       // });
-    } 
+    $( "#vendas" ).submit(function( event ) {
+        event.preventDefault();
+        var id = $(this).attr("id");
 
+        $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var Mudas = {!! json_encode($mudas, JSON_FORCE_OBJECT) !!};
+
+        var idMuda, quantMuda, precoUnMuda, precoItemVenda, precoTotalVenda=0;
+        var objItemVenda = {}
+        var i = 0;
+        for (key in Mudas) {
+            quantMuda = $('#quant'+Mudas[key].id).val();
+            if (quantMuda > 0)
+            {
+                idMuda = Mudas[key].id;
+                precoUnMuda = $('#precoUn'+Mudas[key].id).val();
+                if(precoUnMuda == '') {
+                    precoUnMuda = 0;
+                }
+                precoItemVenda = parseInt(quantMuda)*parseFloat(precoUnMuda);
+                precoTotalVenda += parseFloat(precoItemVenda);
+                objItemVenda[i] = {
+                    $idMuda: idMuda,
+                    $quant: quantMuda,
+                    $precoUn: precoUnMuda,
+                    $precoTotal: precoItemVenda,
+                } 
+                i++;
+            }
+        }
+
+        var objCompleto = {
+            documento: $('#documento').val(),
+            data: dataAtualFormatada(),
+            precoTotalVenda: precoTotalVenda,
+            idClientes:  $('#idClientes').val(),
+            idUsers:  $('#idUsers').val(),
+            idItemVenda: objItemVenda,
+        }
+
+        if (objItemVenda[0]){
+            $.ajax({
+                method: 'POST',
+                url: 'vendaMuda',
+                dataType: 'JSON',
+                data: objCompleto,       
+                success: function(data) {      
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Venda criada com sucesso!',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        onClose: () => {    
+                            
+                            }
+                    });
+                },
+                error: function(data) {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Erro ao inserir a Venda!',
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+
+            });
+        }
+    });
+    
+    function dataAtualFormatada(){
+    var data = new Date(),
+        dia  = data.getDate().toString(),
+        diaF = (dia.length == 1) ? '0'+dia : dia,
+        mes  = (data.getMonth()+1).toString(), //+1 pois no getMonth Janeiro começa com zero.
+        mesF = (mes.length == 1) ? '0'+mes : mes,
+        anoF = data.getFullYear();
+    return anoF+"-"+mesF+"-"+diaF;
+    }
 </script>
 @stop
 

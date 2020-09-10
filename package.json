@@ -19,7 +19,8 @@
         "sass-loader": "^8.0.0"
     },
     "dependencies": {
+        "@sweetalert2/themes": "^4.0.0",
         "jquery": "^3.5.1",
-        "sweetalert2": "^9.15.1"
+        "sweetalert2": "^9.17.1"
     }
 }

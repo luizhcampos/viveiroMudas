@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RequestRecipientes;
 use App\Models\Recipientes;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,7 @@ class RecipientesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RequestRecipientes $request)
     {
         $data = $request->all();
 
@@ -86,7 +87,7 @@ class RecipientesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RequestRecipientes $request, $id)
     {
         if (!$recipientes = Recipientes::find($id))
             return redirect()->back();

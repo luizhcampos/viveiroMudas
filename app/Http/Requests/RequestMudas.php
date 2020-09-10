@@ -28,10 +28,14 @@ class RequestMudas extends FormRequest
             'nomeCientifico' => 'nullable|min:3|max:1000',
             'dataColeta' => 'nullable',
             'quant' => 'required',
-            'precoMuda' => 'required',//'|regex:/^\d+(\.\d{1,2})?$/'
+            'custoProducao'=>'required',//'|regex:/^\d+(\.\d{1,2})?$/'
             'blocoPlantio'=> 'required',
             'canteiroPlantio' => 'required',
             'estagioMuda' => 'required',
+            'idRecipientes' => 'nullable',
+            'idSementes' => 'nullable',
+            'idSubstratos' => 'nullable',
+            'volume_Subs_Recip' => 'nullable',
             'observacao' => 'nullable|min:1|max:10000',
         ];
     }
@@ -39,9 +43,14 @@ class RequestMudas extends FormRequest
     public function messages()
     {
         return[
+
             'nomePopular.required' => 'Nome Obrigatório!',
             'nomePopular.min' => 'Ops! Nome deve ser maior que 3 caracteres!',
-            'quant' => 'Quantidade Obrigatória!',
+            'quant.required' => 'Quantidade Obrigatória!',
+            'custoProducao.required' => 'Custo de produção é obrigatório!',
+            'blocoPlantio'=> 'Preencha o valor de Bloco de Plantio!',
+            'canteiroPlantio' => 'Preencha o valor do Canteiro de Plantio!',
+            'estagioMuda' => 'Preencha o valor do estágio    de Plantio!',
         ];
     }
 }

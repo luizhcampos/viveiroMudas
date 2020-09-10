@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RequestSementes extends FormRequest
+class RequestClientes extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,20 +26,20 @@ class RequestSementes extends FormRequest
         $id = $this->segment(2);
 
         return [
-            'nomePopular' => "required|min:3|max:255",
-            'nomeCientifico' => 'nullable|min:3|max:10000',
-            'quant' => 'nullable|min:1',
-            'observacao' => 'nullable|min:1|max:10000',
-            'localColeta' => 'nullable|min:1|max:500',
-            'dataColeta' => 'nullable', //regex de data*/
+            'nome' => "required|unique:clientes,nome|min:3|max:255",
+            'cidade' => 'required|min:3|max:255'
+            
         ];
     }
 
     public function messages()
     {
         return[
-            'nomePopular.required' => 'Nome Popular é Obrigatório!',
-            'nomePopular.min' => 'Ops! Nome Popular deve ser maior que 3 caracteres!',
+            'nome.required' => 'Nome Obrigatório!',
+            'nome.min' => 'Ops! Nome deve ser maior que 3 caracteres!',
+            'nome.unique' => 'Já existe um Cliente com esse nome Salvo. Mude o nome do cliente.',
+            'cidade.required' => 'Cidade Obrigatório!',
+            'cidade.min' => 'Ops! Cidade deve ter mais de 3 caracteres!',
         ];
     }
 }

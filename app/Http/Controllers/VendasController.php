@@ -6,12 +6,14 @@ use App\Models\Clientes;
 use App\Models\Mudas;
 use App\Models\Vendas;
 use App\Models\Empresas;
+use App\Models\ItensVendas;
 use App\Models\Recipientes;
 use App\Models\Sementes;
 use App\Models\Substratos;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class VendasController extends Controller
 {
@@ -71,13 +73,7 @@ class VendasController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
 
-        dd($data);
-
-        $vendas = Vendas::create($data);
-
-        return redirect()->route('vendas.index');
     }
 
     /**
@@ -135,8 +131,6 @@ class VendasController extends Controller
 
         $mudas = $this->repositoryMudas->search($request->filter);
 
-
-
         $Recipientes = Recipientes::all();
         $Substratos = Substratos::all();
         $Sementes = Sementes::all();    
@@ -154,6 +148,33 @@ class VendasController extends Controller
             'clientes'=> Clientes::all(),
             'user'=> Auth::user(),
         ]);
+    }
+
+    public function vendaMuda(Request $request)
+    {
+        $data = $request->all();
+        $vendas = Vendas::create($data);
+        
+        if ($vendas)
+        {
+            Vendas::where('id', $vendas->id)->update(array('documento'=>('Viveiro_IF_' .$vendas->id)));
+            /*$vendas->attach(ItensVendas::create($data);
+             $itemVenda = ItensVendas::create([
+                'idMuda' => $request->idMuda,
+                'idVenda'=> $vendas->idVenda,
+                'quant'  => $request->quant,
+                'precoUn'=> $request->precoUn,
+                'precoTotal'=>$request->precoTotal,
+            ]);
+            if ($itemVenda)
+            {
+                dd($itemVenda);
+            }*/
+            return response()->json(array('success' => true, 'messagem' => 'Venda Cadastrada com Sucesso!'));
+        }
+        else
+            return response()->json(array('error' => true, 'messagem' => 'Erro ao cadastrar a venda!'));
+        
     }
 
 }

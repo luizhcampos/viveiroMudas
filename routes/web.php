@@ -18,7 +18,7 @@ Route::any('sementes/deletar/{idSemente}', 'SementesController@deletar')->name('
 
 Route::resource('substratos', 'SubstratosController');
 Route::any('substratos/search', 'SubstratosController@search')->name('substratos.search');
-Route::any('substratos/deletar/{idSubstrato}', 'SubstratosController@deletar')->name('substratos.deletar');
+Route::POST('substratos/deletar/{idSubstrato}', 'SubstratosController@deletar');
 
 Route::resource('recipientes', 'RecipientesController');
 Route::any('recipientes/search', 'RecipientesController@search')->name('recipientes.search');
@@ -39,4 +39,6 @@ Route::resource('clientes', 'ClientesController');
 Route::any('clientes/deletar/{idCliente}', 'ClientesController@deletar')->name('clientes.deletar');
 
 Route::resource('vendas', 'VendasController');
+
+Route::post('vendas/vendaMuda', 'VendasController@vendaMuda')->name('vendas.vendaMuda');
 Route::any('vendas/searchMudas', 'VendasController@searchMudas')->name('vendas.searchMudas');
