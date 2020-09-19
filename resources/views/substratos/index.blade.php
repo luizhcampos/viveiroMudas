@@ -42,7 +42,7 @@
                 <i class="fas fa-minus"></i></button>
             </div>
         </div>
-            <div class="card-body p-0 text-center">
+        <div class="card-body p-0 text-center">
             <table class="table table-striped projects">
                 <thead>
                     <tr>
@@ -107,7 +107,7 @@
                                 Editar
                             </a>
                             
-                            <button id="delete" class="btn btn-danger btn-sm" onclick="deleteItem({{$value['id']}})">
+                            <a class="btn btn-danger btn-sm" href="{{route('substratos.deletar', $value['id'])}}">
                                 <i class="fas fa-trash">
                                 </i>
                                 Deletar
@@ -117,34 +117,19 @@
                     @endforeach
                 </tbody>
             </table>
-            </div>
+        </div>
             
-            @if (isset($filters))
-                {!! $substratos->appends($filters)->links() !!}
-            @else
-                {!! $substratos->links() !!}
-            @endif
-            
+        @if (isset($filters))
+            {!! $substratos->appends($filters)->links() !!}
+        @else
+            {!! $substratos->links() !!}
+        @endif
+        
         </div>
       <!-- /.card -->
     </section>
 @Stop
 
 @section('js')
-<script>
-    function deleteItem(id) {
-        $.ajaxSetup({
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({ 
-            type: "POST", 
-            url:'substratos/deletar/'+ id,  
-            success: function(result) {
-                alert("Muda Deletada com Sucesso!");
-                }
-        });          
-    }
-</script>
+
 @stop

@@ -107,7 +107,6 @@ class SubstratosController extends Controller
     public function deletar($id)
     {
 
-        dd($id);
     if (!$substratos = Substratos::find($id))
         return redirect()->back();
         

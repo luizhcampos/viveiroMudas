@@ -53,9 +53,7 @@ class ClientesController extends Controller
         $data = $request->all();
 
         $clientes = Clientes::create($data);
-
-        dd($data);
-
+            
         if ($clientes){
             return redirect()->route('clientes.index');
         } else { 
@@ -121,15 +119,15 @@ class ClientesController extends Controller
         return redirect()->route('clientes.index');
     }
 
-    public function search (Request $request, Clientes $clientes)
+    public function search (Request $request, Clientes $cliente)
     {
         
-        $clientes = $this->repository->search($request->filter);
+        $cliente = $this->repository->search($request->filter);
 
         $filters = $request->except('_token');
 
         return view('clientes.index', [
-            'clientes'=> $clientes,
+            'clientes'=> $cliente,
             'filters' => $filters,
         ]);
     }
