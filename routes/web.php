@@ -42,6 +42,9 @@ Route::resource('vendas', 'VendasController');
 
 Route::post('vendas/vendaMuda', 'VendasController@vendaMuda')->name('vendas.vendaMuda');
 Route::any('vendas', 'VendasController@search')->name('vendas.search');
+
 Route::get('buscarVenda/{idVenda}', 'VendasController@getVendas');
+
 Route::any('vendas/searchMudas', 'VendasController@searchMudas')->name('vendas.searchMudas');
+
 Route::any('vendas/deletar/{idVenda}', 'VendasController@deletar')->name('vendas.deletar');
