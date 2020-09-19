@@ -27,7 +27,8 @@ class RequestClientes extends FormRequest
 
         return [
             'nome' => "required|unique:clientes,nome|min:3|max:255",
-            'cidade' => 'required|min:3|max:255'
+            'cidade' => 'required|min:3|max:255',
+            'uf' => 'required'
             
         ];
     }
@@ -40,6 +41,7 @@ class RequestClientes extends FormRequest
             'nome.unique' => 'Já existe um Cliente com esse nome Salvo. Mude o nome do cliente.',
             'cidade.required' => 'Cidade Obrigatório!',
             'cidade.min' => 'Ops! Cidade deve ter mais de 3 caracteres!',
+            'cep.required' => 'Cep Obrigatório!',
         ];
     }
 }

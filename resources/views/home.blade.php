@@ -72,7 +72,7 @@
                 <div class="inner">
                   <h3>{{$empresas[0]->quantProducao}}</h3>
   
-                  <p>Capacitade de Procução</p>
+                  <p>Capacidade de Produção</p>
                 </div>
                 <div class="icon">
                   <i class="fas fa-chart-line"></i>

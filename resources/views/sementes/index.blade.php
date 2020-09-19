@@ -47,7 +47,7 @@
             </div>
         </div>
             <div class="card-body p-0 text-center">
-            <table class="table table-striped projects  text-center">
+            <table class="table table-striped projects text-center">
                 <thead>
                     <tr>
                         <th>

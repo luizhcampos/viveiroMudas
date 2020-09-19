@@ -39,7 +39,7 @@ class MudasController extends Controller
      */
     public function index()
     {
-        $mudas = $this->repository->paginate();
+        $mudas = $this->repository->where('mudas.quant','>',0)->orderBy('mudas.id', 'DESC')->paginate();
 
         $Recipientes = Recipientes::all();
         $Substratos = Substratos::all();
@@ -64,11 +64,13 @@ class MudasController extends Controller
         $Recipientes = Recipientes::all();
         $Substratos = Substratos::all();
         $Sementes = Sementes::all();
+        $mudas = new Mudas();
 
         return view ('mudas.create', [
             'Recipientes' => $Recipientes,
             'Substratos' => $Substratos,
             'Sementes' => $Sementes,
+            'mudas'=> $mudas,
         ]);
     }
 
@@ -279,7 +281,7 @@ class MudasController extends Controller
             if ($mudas->quant != $request->quant)
             { 
                 Sementes::where('id', $request->idSementes)->update(array(
-                    'quant_total'=>($sementes->quant_total +($mudas->quant - $transformaPeso))));
+                    'quant_total'=>($sementes->quant_total - $transformaPeso)));
             }
         }
     }

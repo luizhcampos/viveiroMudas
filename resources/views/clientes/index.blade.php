@@ -42,7 +42,7 @@
                 <i class="fas fa-minus"></i></button>
             </div>
         </div>
-            <div class="card-body p-0 text-center">
+        <div class="card-body p-0 text-center">
             <table class="table table-striped projects">
                 <thead>
                     <tr>
@@ -98,13 +98,17 @@
                     @endforeach
                 </tbody>
             </table>
-            </div>
-            
         </div>
-      <!-- /.card -->
+        
+        @if (isset($filters))
+            {!! $clientes->appends($filters)->links() !!}
+        @else
+            {!! $clientes->links() !!}
+        @endif
+                
+        </div>
     </section>
-@Stop
-
+@stop
 
 
   

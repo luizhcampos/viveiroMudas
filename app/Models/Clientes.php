@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Clientes extends Model
 {
-    protected $fillable = ['nome', 'CPF', 'dataNasc', 'sexo', 'rua', 'bairro', 'cidade', 'cep','num', 'uf'];
+    protected $fillable = ['nome', 'CPF', 'dataNasc', 'sexo', 'rua', 'bairro', 'cidade', 'cep','num', 'uf', 'cidadePlantio',
+    'cepPlantio', 'ufPlantio'];
 
     public function Search ($filter = null){
         

@@ -82,7 +82,7 @@
             <select name="idRecipientes" class="custom-select" placeholder="Opcional">
                     <option value=""></option>   
                     @foreach ($Recipientes as $recipiente)
-                    <option @if($mudas->idRecipientes ?? '' == $recipiente->id) selected  @endif
+                    <option @if($mudas->idRecipientes == $recipiente->id) selected  @endif
                         value="{{ $recipiente->id }}">{{ $recipiente->nome }}</option>
                     @endforeach    
             </select>
@@ -92,7 +92,7 @@
             <select name="idSubstratos" class="custom-select" placeholder="Opcional">
                 <option value=""></option>   
                 @foreach ($Substratos as $substrato)
-                <option @if($mudas->idSubstratos ?? '' == $substrato->id) selected  @endif
+                <option @if($mudas->idSubstratos == $substrato->id) selected  @endif
                     value="{{$substrato->id}}" > {{$substrato->nome}}</option>
                 @endforeach     
             </select> 
@@ -127,7 +127,7 @@
             <select name="idSementes" class="custom-select" placeholder="Opcional">
                 <option value=""></option>   
                 @foreach ($Sementes as $semente)
-                <option @if($mudas->idSementes ?? '' == $semente->id) selected  @endif
+                <option @if($mudas->idSementes == $semente->id) selected  @endif
                     value="{{$semente->id}}" > Lote {{$semente->id}} | {{$semente->nomePopular}}</option>
                 @endforeach     
             </select> 

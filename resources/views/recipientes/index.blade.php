@@ -107,7 +107,6 @@
             @endif
             
         </div>
-      <!-- /.card -->
     </section>
 @Stop
 

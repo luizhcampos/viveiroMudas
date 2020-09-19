@@ -23,9 +23,11 @@ class VendasController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(Request $request, Mudas $mudas)
+    public function __construct(Request $request, Vendas $vendas, Mudas $mudas)
     {
         $this->request = $request;
+        
+        $this->repository = $vendas;
         $this->repositoryMudas = $mudas;
     }
 
@@ -33,10 +35,13 @@ class VendasController extends Controller
     {
         $clientes = Clientes::all();
         $mudas    = Mudas::all();
-        $vendas = Vendas::all();
-
+        $user     = User::all();
+        $vendas = $this->repository->orderBy('vendas.id', 'DESC')->paginate();
         return view ('vendas.index',[
-            'vendas' => $vendas
+            'vendas' => $vendas,
+            'clientes'=> $clientes,
+            'users'=>$user,
+            'mudas'=>$mudas,
         ]);
     }
 
@@ -158,23 +163,70 @@ class VendasController extends Controller
         if ($vendas)
         {
             Vendas::where('id', $vendas->id)->update(array('documento'=>('Viveiro_IF_' .$vendas->id)));
-            /*$vendas->attach(ItensVendas::create($data);
-             $itemVenda = ItensVendas::create([
-                'idMuda' => $request->idMuda,
-                'idVenda'=> $vendas->idVenda,
-                'quant'  => $request->quant,
-                'precoUn'=> $request->precoUn,
-                'precoTotal'=>$request->precoTotal,
-            ]);
-            if ($itemVenda)
+
+            $Itensvenda = $request->all();
+            
+            foreach ($Itensvenda["idItemVenda"] as $item)
             {
-                dd($itemVenda);
-            }*/
+                ItensVendas::create([
+                    'idMudas' => $item["idMudas"],
+                    'idVenda' => $vendas->id,
+                    'quant' => $item["quant"],
+                    'precoUn' => $item["precoUn"],
+                    'precoTotal' => $item["precoTotal"],
+                ]);
+            }
+
             return response()->json(array('success' => true, 'messagem' => 'Venda Cadastrada com Sucesso!'));
         }
         else
             return response()->json(array('error' => true, 'messagem' => 'Erro ao cadastrar a venda!'));
         
+    }
+
+    public function search (Request $request, Vendas $vendas)
+    {
+        
+        $vendas = $this->repository->search($request->filter);
+
+        $clientes = Clientes::all();
+        $user = User::all();
+        $muda = Mudas::all();    
+
+        $filters = $request->except('_token');
+
+        return view('vendas.index', [
+            'clientes' => $clientes,
+            'vendas' => $vendas,
+            'users'  => $user,
+            'filters' => $filters,
+        ]);
+    }
+    
+    public function getVendas ($id)
+    {
+        
+        $vendas = Vendas::where('id', '=', $id)->first();
+        //dd($mudas);     
+        return Response()->json($vendas);
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deletar($id)
+    {
+        
+        if (!$vendas = Vendas::find($id))
+            return redirect()->back();
+
+        $vendas->forceDeleting();
+
+        return redirect()->route('vendas.index');
     }
 
 }

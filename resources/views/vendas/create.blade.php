@@ -153,6 +153,10 @@
                             <input id="totalItem{{$value['id']}}" name="totalItem" type="text" class="form-control input-md"
                             disabled onchange="calculaValorTotal()">
                         </td>
+                        <td>
+                            <input id="totalItens{{$value['id']}}" name="totalItens" type="text" class="form-control input-md"
+                            disabled  hidden>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -192,18 +196,44 @@
 
         for (key in Mudas) {
             if(Mudas[key].id == dataId){
+                if($('#totalItem'+dataId).val() != '') {
+                    var totalItemAnterior = $('#totalItem'+dataId).val();    
+                }
+
                 if(($('#quant'+dataId).val() != '') && ($('#precoUn'+dataId).val() != '')) {
                     var quant = $('#quant'+dataId).val();
                     var preco = $('#precoUn'+dataId).val();
                     var total = parseInt(quant)* parseFloat(preco);
                     
-                    $('#totalItem'+dataId).val(total);
+                    $('#totalItem'+dataId).val(total);     
                 }
             }
         }
+
+        if (isNaN(totalItemAnterior)){
+           totalItemAnterior = 0;
+        }
+
+        for (key in Mudas) {
+            if(Mudas[key].id == dataId){
+                if (!isNaN(total)){
+                    if (totalItemAnterior != total)
+                    {
+                        var valorVenda = $('#valorVenda').val();
+                        valorVenda = parseFloat(valorVenda) + parseFloat(total) - parseFloat(totalItemAnterior);
+                        $('#valorVenda').val(valorVenda);
+                    } else {
+                        var valorVenda = $('#valorVenda').val();
+                        valorVenda = parseFloat(valorVenda) + parseFloat(total);
+                        $('#valorVenda').val(valorVenda);
+                    }
+                }
+
+            }
+        }  
     }
 
-    $( "#vendas" ).submit(function( event ) {
+    $("#vendas" ).submit(function( event ) {
         event.preventDefault();
         var id = $(this).attr("id");
 
@@ -230,10 +260,10 @@
                 precoItemVenda = parseInt(quantMuda)*parseFloat(precoUnMuda);
                 precoTotalVenda += parseFloat(precoItemVenda);
                 objItemVenda[i] = {
-                    $idMuda: idMuda,
-                    $quant: quantMuda,
-                    $precoUn: precoUnMuda,
-                    $precoTotal: precoItemVenda,
+                    'idMudas': idMuda,
+                    'quant': quantMuda,
+                    'precoUn': precoUnMuda,
+                    'precoTotal': precoItemVenda,
                 } 
                 i++;
             }
@@ -262,9 +292,10 @@
                         showConfirmButton: false,
                         timer: 1500,
                         onClose: () => {    
-                            
+                            window.location.reload();
                             }
                     });
+
                 },
                 error: function(data) {
                     Swal.fire({

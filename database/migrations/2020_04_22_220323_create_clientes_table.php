@@ -25,6 +25,9 @@ class CreateClientesTable extends Migration
             $table->string('cep')->nullable();
             $table->integer('num')->nullable();
             $table->string('uf');
+            $table->string('cidadePlantio');
+            $table->string('cepPlantio')->nullable();
+            $table->string('ufPlantio');
             $table->timestamps();
         });
     }

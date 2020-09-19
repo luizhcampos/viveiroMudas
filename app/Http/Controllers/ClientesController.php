@@ -54,6 +54,8 @@ class ClientesController extends Controller
 
         $clientes = Clientes::create($data);
 
+        dd($data);
+
         if ($clientes){
             return redirect()->route('clientes.index');
         } else { 
