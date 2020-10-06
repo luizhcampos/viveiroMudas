@@ -188,7 +188,7 @@ class MudasController extends Controller
         if (!$mudas = Mudas::find($id))
             return redirect()->back();
 
-        $mudas->delete();
+        $mudas->forceDelete();
 
         return redirect()->route('mudas.index');
     }
@@ -238,7 +238,7 @@ class MudasController extends Controller
             'canteiroPlantio'=>($request->canteiroPlantio),
             'dataAtualizacao'=>($request->dataAtualizacao),
             'estagioMuda'    =>($request->estagioMuda),
-            'idRecipientes'  =>($request->idRecipientes),
+            'quant'          =>($request->quant),
         ])
         ) {
             $mudas = $this->repository->paginate();

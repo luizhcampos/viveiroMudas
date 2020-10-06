@@ -24,7 +24,7 @@ class ClientesController extends Controller
      */
     public function index()
     {
-        $clientes = Clientes::all();
+        $clientes  = $this->repository->paginate();
 
         return view ('clientes.index', [
             'clientes' => $clientes

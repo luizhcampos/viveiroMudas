@@ -99,6 +99,12 @@
                 </tbody>
             </table>
         </div>
+                
+        @if (isset($filters))
+            {!! $clientes->links() !!}
+        @else
+            {!! $clientes->links() !!}
+        @endif
         </div>
     </section>
 @stop

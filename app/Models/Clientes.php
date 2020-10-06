@@ -19,5 +19,13 @@ class Clientes extends Model
         ->paginate();
 
         return $results;
+        
+    }
+
+    public function getSender ($sender)
+    {
+        return $this->where('id', $sender)
+            ->get()
+            ->first();
     }
 }

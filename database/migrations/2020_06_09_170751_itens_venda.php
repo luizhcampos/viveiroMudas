@@ -20,7 +20,7 @@ class ItensVenda extends Migration
             $table->foreign('idMudas')->references('id')->on('mudas')->onDelete('restrict');
 
             $table->integer('idVenda')->unsigned()->nullable();
-            $table->foreign('idVenda')->references('id')->on('vendas')->onDelete('restrict');
+            $table->foreign('idVenda')->references('id')->on('vendas')->onDelete('cascade');
 
             $table->integer('quant');
             $table->double('precoUn',10,2);

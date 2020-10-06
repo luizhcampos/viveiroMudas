@@ -43,7 +43,7 @@
                 <div class="inner">
                 <h3>{{$mudas->count()}}</h3>
   
-                  <p>Espécies Plantadas</p>
+                  <p>Lotes de Mudas</p>
                 </div>
                 <div class="icon">
                   <i class="fab fa-canadian-maple-leaf"></i>
@@ -56,8 +56,8 @@
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>{{$vendas->count()}}<!--<sup style="font-size: 20px">%</sup>--></h3>
-                  <p>Vendas Realizadas</p>
+                  <h3>R$ {{$vendas->sum('precoTotalVenda')}} Reais<!--<sup style="font-size: 20px">%</sup>--></h3>
+                  <p>em {{$itensVendas->sum('quant')}} Mudas que foram Vendidas</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-chart-bar"></i>
@@ -65,14 +65,13 @@
                 <a href="vendas" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h3>{{$empresas[0]->quantProducao}}</h3>
+                  <h3>{{$mudas->sum('quant')}}</h3>
   
-                  <p>Capacidade de Produção</p>
+                  <p>Mudas no Viveiro</p>
                 </div>
                 <div class="icon">
                   <i class="fas fa-chart-line"></i>

@@ -34,11 +34,12 @@
         <div class="col-md-2">
             <label>Bloco de Plantio</label>
             <select class="custom-select" type="text" name="blocoPlantio" placeholder="Obrigatório" required='ON'>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-                <option>D</option>
-                <option>E</option>
+                <option value="A" <?=($mudas->blocoPlantio == 'A')?'selected':''?> >A</option>
+                <option value="B" <?=($mudas->blocoPlantio == 'B')?'selected':''?> >B</option>
+                <option value="C" <?=($mudas->blocoPlantio == 'C')?'selected':''?> >C</option>
+                <option value="D" <?=($mudas->blocoPlantio == 'D')?'selected':''?> >D</option>
+                <option value="E" <?=($mudas->blocoPlantio == 'E')?'selected':''?> >E</option>
+
             </select>
         </div>
         <div class="col-md-2">
@@ -83,7 +84,7 @@
                     <option value=""></option>   
                     @foreach ($Recipientes as $recipiente)
                     <option @if($mudas->idRecipientes == $recipiente->id) selected  @endif
-                        value="{{ $recipiente->id }}">{{ $recipiente->nome }}</option>
+                        value="{{ $recipiente->id }}"> Lote {{$recipiente->id}} | {{ $recipiente->nome }}</option>
                     @endforeach    
             </select>
         </div>
@@ -93,7 +94,7 @@
                 <option value=""></option>   
                 @foreach ($Substratos as $substrato)
                 <option @if($mudas->idSubstratos == $substrato->id) selected  @endif
-                    value="{{$substrato->id}}" > {{$substrato->nome}}</option>
+                    value="{{$substrato->id}}" > Lote {{$substrato->id}} | {{$substrato->nome}}</option>
                 @endforeach     
             </select> 
         </div>

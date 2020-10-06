@@ -4,18 +4,33 @@
 
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <form id='vendas' class="form-horizontal">
+
     
     <div class="card col-md-12">
         <div class="card-title">
-                <i class="fas fa-globe"></i> {{$empresas->nome}}
-                <small class="float-right">Data:
-                    <?php $currentDateTime = new DateTime('now');
-                    echo $currentDateTime->format('d-m-Y');?> 
-                </small>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="submit" class="btn btn-block btn-success btn-lg">Salvar</button>
+                </div>
+                <div class="col-md-6">
+                    <a type="button" href={{route('vendas.index')}} class="btn btn-block btn-danger btn-lg">Cancelar</a>
+                </div>
+            </div>
+            <br>
         </div>
+    </div>
+    <div class="card col-md-12">
         <div class="card-header">
             <div class="form-group">
-                <div class="row">  
+                <div>                
+                    <i class="fas fa-globe"></i> {{$empresas->nome}}
+                    <small class="float-right">Data:
+                        <?php $currentDateTime = new DateTime('now');
+                        echo $currentDateTime->format('d-m-Y');?> 
+                    </small>
+                </div>
+                <div class="row"> 
                     <div class="col-md-3">
                         <label>Cliente</label>
                         <select id="idClientes" name="idClientes" class="custom-select" placeholder="Opcional">
@@ -41,27 +56,14 @@
                     </div>
                 </div>
             </div>   
-        </div>
-
-    </div>
-    <div class="card col-md-12">
-        <!--
-        <div class="card-header">
             <h3 class="card-title">Lista de Mudas </h3>
             <br>
             <div class="small-box text-center" style="padding: 10px">
-                <form action="{{ route('vendas.searchMudas') }}" method="post">
-                    @csrf
                     <div class="input-group">
-                        <input type="text" name="filter" class="form-control rounded-0" 
-                            placeholder="Digite o nome da muda..." value="{{$filters['filter']??null}}">
-                        <span class="input-group-append">
-                        <button type="submit" class="btn btn-info btn-flat">Pesquisar!</button>
-                        </span>
-                    </div>
-                </form>
+                        <input type="text" id='search' name="search" class="form-control rounded-0" 
+                            placeholder="Digite o nome da muda...">
             </div>
-        </div> -->
+        </div>
         <div class="card-body p-0 text-center">
             <table id="tabelaVendas" class="table table-striped projects">
                 <thead>
@@ -79,7 +81,7 @@
                             Data de Plantio
                         </th>
                         <th>
-                            Preço da Mudas
+                            Custo do Lote
                         </th>
                         <th>
                             Local da Muda
@@ -125,7 +127,7 @@
                         </td>
                         <td >
                             <a>
-                                {{ 'R$ ' .$value['precoMuda']}}
+                                {{ 'R$ ' .$value['custoProducao']}}
                             </a>
                         </td>
                         <td >
@@ -163,12 +165,6 @@
             </form>
             </table>
         </div> 
-
-        <div class="card-body">
-            <button type="submit" class="btn btn-block btn-outline-success btn-lg">Salvar</button>
-            <a type="button" href={{route('vendas.index')}} class="btn btn-block btn-outline-danger btn-lg">Cancelar</a>
-        </div> 
-
     </div>
 </form>
 
@@ -292,7 +288,7 @@
                         showConfirmButton: false,
                         timer: 1500,
                         onClose: () => {    
-                            window.location.reload();
+                            window.location = '{{route("vendas.index")}}';
                             }
                     });
 
@@ -320,6 +316,19 @@
         anoF = data.getFullYear();
     return anoF+"-"+mesF+"-"+diaF;
     }
+
+    $("#search").keyup(function () {
+    var value = this.value.toLowerCase().trim();
+        $("table tr ").each(function (index) {
+            if (!index) return;
+            $(this).find("td").each(function () {
+                var id = $(this).text().toLowerCase().trim();
+                var not_found = (id.indexOf(value) == -1);
+                $(this).closest('tr').toggle(!not_found);
+                return not_found;
+            });
+        });
+    });
 </script>
 @stop
 

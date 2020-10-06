@@ -10,7 +10,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home',        'HomeController@index')->name('home');
-//Rotas Módulo de Sementes
 
 Route::resource('sementes', 'SementesController');
 Route::any('sementes/search', 'SementesController@search')->name('sementes.search');

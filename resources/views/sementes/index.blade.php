@@ -103,7 +103,9 @@
                         <td >
                             <a >
                                 @php
+                                if ($value['dataColeta'] != null) {
                                     echo date_format(new DateTime($value['dataColeta']), "d/m/Y");
+                                }
                                 @endphp
                             </a>
                         </td>

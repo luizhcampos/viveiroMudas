@@ -12,11 +12,11 @@
             dataType:'JSON',
             success: function (data) {
                 console.log(data);
-                $('#id').val(data.id);
-                $('#idcliente').val(data.idClientes);
-                $('#idUser').val(data.iduser);
-                $('#documento').val(data.documento);
-                $('#valorVenda').val(data.precoTotalVenda);
+                $('#id').val(data[0].id);
+                $('#idcliente').val(data[1].nome);
+                $('#idUsers').val(data[2].name);
+                $('#documento').val(data[0].documento);
+                $('#valorVenda').val(data[0].precoTotalVenda);
                 $('#detalhesVenda').modal('show');
             }
         });
@@ -118,7 +118,9 @@
                         <td >
                             <a>
                                 @php
-                                echo date_format(new DateTime($value['dataVenda']), "d/m/Y");
+                                if ($value['data'] != null) {
+                                    echo date_format(new DateTime($value['data']), "d/m/Y");
+                                }
                                 @endphp
                             </a>
                         </td>
@@ -169,14 +171,16 @@
                         @csrf
                         <div class="form-group">
                             <div class="row">  
+                                <div class="col-md-12">
                                     <label>Cliente</label>
                                     <input id="idcliente" value="{{$vendas->idCliente ?? '' }}" type="text" class="form-control input-md" disabled>
                                     <label>Documento da Venda</label>
                                     <input id="documento" value="{{$vendas->documento ?? 'New Venda' }}" type="text" class="form-control input-md" disabled>
                                     <label>Funcionário da Venda</label> 
-                                    <input id="idusers" value="{{$vendas->idUser ?? ''}}" type="number" step="0.01" class="form-control input-md" disabled>
+                                    <input id="idUsers" value="{{$vendas->idUsers ?? ''}}"  type="text" class="form-control input-md" disabled>
                                     <label>Total a ser Pago</label>
-                                <input id="valorVenda" value="{{$vendas->valorVenda ?? ''}}" type="number" step="0.01" class="form-control input-md" disabled>
+                                    <input id="valorVenda" value="{{$vendas->valorVenda ?? ''}}" type="number" step="0.01" class="form-control input-md" disabled>
+                                    
                                 </div>
                             </div>
                         </div> 

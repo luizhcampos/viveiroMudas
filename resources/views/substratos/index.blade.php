@@ -92,7 +92,9 @@
                         <td >
                             <a>
                                 @php
-                                echo date_format(new DateTime($value['inicioMaturacao']), "d/m/Y");
+                                if ($value['inicioMaturacao'] != null) {
+                                    echo date_format(new DateTime($value['inicioMaturacao']), "d/m/Y");
+                                }
                                 @endphp
                             </a>
                         </td>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Clientes;
 use App\Models\Empresas;
+use App\Models\ItensVendas;
 use App\Models\Mudas;
 use Illuminate\Http\Request;
 use  App\Models\Vendas;
@@ -28,10 +29,11 @@ class HomeController extends Controller
     public function index()
     {
         $empresas = Empresas::all();
-        $mudas = Mudas::all();
+        $mudas = Mudas::where('mudas.quant','>',0);
         $clientes = Clientes::all();
         $vendas = Vendas::all();
+        $itensVendas = ItensVendas::all();
         
-        return view('/home', ['empresas' => $empresas, 'vendas' => $vendas, 'mudas'=> $mudas, 'clientes'=> $clientes]);
+        return view('/home', ['empresas' => $empresas, 'vendas' => $vendas, 'mudas'=> $mudas, 'clientes'=> $clientes, 'itensVendas' => $itensVendas]);
     }
 }

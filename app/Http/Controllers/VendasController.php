@@ -14,6 +14,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use ItensVenda;
 
 class VendasController extends Controller
 {
@@ -52,9 +53,10 @@ class VendasController extends Controller
      */
     public function create()
     {
+        
         $empresas = Empresas::find(1);
         $clientes = Clientes::all();
-        $mudas    = Mudas::all();
+        $mudas    = Mudas::all()->where('quant','>',0);
         $vendas   = Vendas::all()->last();
         $user     = Auth::user();
 
@@ -175,6 +177,10 @@ class VendasController extends Controller
                     'precoUn' => $item["precoUn"],
                     'precoTotal' => $item["precoTotal"],
                 ]);
+
+                $mudas = Mudas::find($item["idMudas"]);
+                
+                Mudas::where('id', $item["idMudas"])->update(array('quant' => $mudas->quant - $item["quant"]));
             }
 
             return response()->json(array('success' => true, 'messagem' => 'Venda Cadastrada com Sucesso!'));
@@ -207,8 +213,11 @@ class VendasController extends Controller
     {
         
         $vendas = Vendas::where('id', '=', $id)->first();
+        $clientes = Clientes::where('id', '=', $vendas->idClientes)->first();
+        $user = User::where('id', '=', $vendas->idUsers)->first();
+        $itensVenda = ItensVendas::all()->where('idVenda', '=', $id);
         //dd($mudas);     
-        return Response()->json($vendas);
+        return Response()->json([$vendas, $clientes, $user, $itensVenda]);
 
     }
 
@@ -224,7 +233,7 @@ class VendasController extends Controller
         if (!$vendas = Vendas::find($id))
             return redirect()->back();
 
-        $vendas->forceDeleting();
+        $vendas->forceDelete();
 
         return redirect()->route('vendas.index');
     }
