@@ -5,8 +5,8 @@
             <input class="form-control" type="text" name="nome" placeholder="Obrigatório" value="{{$substratos->nome ?? old('nome')}}">
         </div>
         <div class="col-md-2">
-            <label>Quant. M³</label>
-            <input class="form-control" type="number"  step="0.01"  name="quant" placeholder="Opcional" value="{{$substratos->quant ?? old('quant')}}">
+            <label>Quant. Litros</label>
+            <input class="form-control" type="number"  step="0.01"  name="quant" placeholder="Obrigatório" value="{{$substratos->quant ?? old('quant')}}" required>
         </div>
         <div class="col-md-3">
             <label>Data do Cadastro</label>
@@ -15,14 +15,14 @@
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                     </div>
                     <input class="form-control" type="date" name="inicioMaturacao" 
-                        value="{{$substratos->inicioMaturacao ?? old('inicioMaturacao')}}">
+                        value="{{$substratos->inicioMaturacao ?? old('inicioMaturacao')}}" required>
                 </div>
         </div>
     </div>
 </div>
 <div class="card-body">
         <label>Compostos Utilizados</label>
-        <input class="form-control" rows="3" type="text" name="composto" placeholder="Opcional" value="{{$substratos->composto ?? old('composto')}}">
+        <input class="form-control" rows="3" type="text" name="composto" placeholder="Obrigatório" value="{{$substratos->composto ?? old('composto')}}" required>
 </div>
 <div class="card-body">
     <label>Observação</label>

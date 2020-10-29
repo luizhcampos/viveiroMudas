@@ -1,10 +1,14 @@
 <div class="card-body">
     <div class="row">
-        <div class="col-8">
+        <div class="col-6">
             <label>Nome / Empresa</label>
             <input id="nome" class="form-control" type="text" name="nome" placeholder="Obrigatório" required="ON" value="{{$clientes->nome ?? old('nome')}}">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
+            <label>Telefone</label>
+            <input class="form-control" type="number" name="telefone" placeholder="Opcional"  value="{{$clientes->telefone ?? old('telefone')}}">
+        </div>
+        <div class="col-md-3">
             <label>CPF / CNPJ</label>
             <input class="form-control" type="number" name="CPF" placeholder="Opcional"  value="{{$clientes->CPF ?? old('CPF')}}">
         </div>

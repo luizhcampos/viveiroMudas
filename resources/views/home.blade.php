@@ -51,13 +51,29 @@
                 <a href="mudas" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
+            
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-danger">
+                <div class="inner">
+                <h3>{{$mudasEsp}}</h3>
+  
+                  <p>Mudas / Espécie</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-leaf"></i>
+                </div>
+                <a href="clientes" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
             <!-- ./col -->
             <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>R$ {{$vendas->sum('precoTotalVenda')}} Reais<!--<sup style="font-size: 20px">%</sup>--></h3>
-                  <p>em {{$itensVendas->sum('quant')}} Mudas que foram Vendidas</p>
+                  <h3>R$ {{$vendaValor}} Reais<!--<sup style="font-size: 20px">%</sup>--></h3>
+                  <p>em {{$vendaQuant}} Mudas Vendidas nesse ano</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-chart-bar"></i>
@@ -80,29 +96,55 @@
               </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-danger">
-                <div class="inner">
-                <h3>{{$clientes->count()}}</h3>
-  
-                  <p>Clientes</p>
-                </div>
-                <div class="icon">
-                  <i class="fas fa-user-check"></i>
-                </div>
-                <a href="clientes" class="small-box-footer">Mais Informações <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
           </div>
+    </div>
+    <div id="chartTipoMuda" style="width: 100; height: 500px;">
+      
+    
+      <input id="mudasQuant" type="text" value="{{$mudas->count()}}" disabled hidden>
+      <input id="mudasRes" type="text" value="{{$mudasRes}}" disabled hidden>
+      <input id="mudasFrut" type="text" value="{{$mudasFrut}}" disabled hidden>
+      <input id="mudasArb" type="text" value="{{$mudasArb}}" disabled hidden>
     </div>
 @stop
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
 @section('js')
-    <script> console.log('Hi!'); </script>
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"> </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"> </script>
+  <script src="https://www.google.com/jsapi"> </script>
+    
+<script type="text/javascript">
+    //carregando modulo visualization
+    google.load("visualization", "1", {packages:["corechart"]});
+
+    //função de monta e desenha o gráfico
+    function drawChart() {
+    //variavel com armazenamos os dados, um array de array's
+    //no qual a primeira posição são os nomes das colunas
+
+
+    var data = google.visualization.arrayToDataTable([
+          ['Finalidade de Plantio / Lotes', '% do Viveiro'],
+          ['Restauração', parseInt($('#mudasRes').val() )],
+          ['Arborização', parseInt($('#mudasArb').val() )],
+          ['Frutífera',  parseInt($('#mudasFrut').val() )],
+        ]);
+    //opções para exibição do gráfico
+        var options = {
+              title: 'Finalidade de Plantio',//titulo do gráfico
+              is3D: false // false para 2d e true para 3d o padrão é false
+        };
+    //cria novo objeto PeiChart que recebe
+    //como parâmetro uma div onde o gráfico será desenhado
+        var chart = new google.visualization
+        .PieChart(document.getElementById('chartTipoMuda'));
+    //desenha passando os dados e as opções
+        chart.draw(data, options);
+      }
+    //metodo chamado após o carregamento
+    google.setOnLoadCallback(drawChart);
+</script>
+
+  
 @stop

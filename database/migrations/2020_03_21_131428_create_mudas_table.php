@@ -19,7 +19,7 @@ class CreateMudasTable extends Migration
             $table->string('nomeCientifico')->nullable();
             $table->integer('quant');
             $table->date('dataPlantio')->nullable();
-            $table->double('custoProducao',10,2);
+            $table->double('custoProducao',10,2)->nullable();
             $table->string('blocoPlantio');
             $table->string('canteiroPlantio');
             $table->string('estagioMuda');

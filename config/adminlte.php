@@ -209,11 +209,6 @@ return [
 
     'menu' => [
         [
-            'text' => 'search',
-            'search' => true,
-            'topnav' => true,
-        ],
-        [
             'text'        => 'DASHBOARD',
             'url'         => 'home',
             'icon'        => 'fas fa-chart-line',

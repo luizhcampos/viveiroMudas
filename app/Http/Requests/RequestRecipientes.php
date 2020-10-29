@@ -27,7 +27,7 @@ class RequestRecipientes extends FormRequest
 
         return [
             'nome' => "required|min:3|max:255",
-            'quant' => 'nullable|min:0',
+            'quant' => 'required|min:0',
             'observacao' => 'nullable|min:1|max:10000',
         ];
     }
@@ -36,6 +36,7 @@ class RequestRecipientes extends FormRequest
     {
         return[
             'nome.required' => 'Nome Obrigatório!',
+            'quant.required' => 'Quantidade Obrigatória!',
             'nome.min' => 'Ops! Nome deve ser maior que 3 caracteres!',
         ];
     }

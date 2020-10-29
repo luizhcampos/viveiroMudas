@@ -6,7 +6,7 @@
         </div>
         <div class="col-md-4">
             <label>Quantidade</label>
-            <input class="form-control" type="number" name="quant" placeholder="Opcional" value="{{$recipientes->quant ?? old('quant')}}">
+            <input class="form-control" type="number" name="quant" placeholder="Obrigatório" value="{{$recipientes->quant ?? old('quant')}}">
         </div>
     </div>
 </div>

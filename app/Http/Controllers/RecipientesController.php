@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RequestRecipientes;
+use App\Models\Mudas;
 use App\Models\Recipientes;
 use Illuminate\Http\Request;
 
@@ -25,8 +26,11 @@ class RecipientesController extends Controller
     {
         $recipientes = $this->repository->paginate();
 
+        $mudas = Mudas::all();
+
         return view ('recipientes.index', [
-            'recipientes' => $recipientes
+            'recipientes' => $recipientes,
+            'mudas'       => $mudas,
             ]);
     }
 

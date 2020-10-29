@@ -228,7 +228,7 @@ class MudasController extends Controller
         if (!$mudas = Mudas::find($request->id))
             return redirect()->back();
         
-        $Recipientes = Recipientes::all();
+        $Recipientes = Recipientes::find($request->idRecipientes);
         $Substratos = Substratos::all();
         $Sementes = Sementes::all();
          
@@ -239,8 +239,12 @@ class MudasController extends Controller
             'dataAtualizacao'=>($request->dataAtualizacao),
             'estagioMuda'    =>($request->estagioMuda),
             'quant'          =>($request->quant),
+            'idRecipientes'  =>($request->idRecipientes),
         ])
         ) {
+            
+            Recipientes::where('id', $request->idRecipientes)->update(array('quant'=> $Recipientes->quant - $request->quant));
+            
             $mudas = $this->repository->paginate();
             return response()->json(array('success' => true));
         }
@@ -250,12 +254,7 @@ class MudasController extends Controller
     {
         if($request->isMethod('POST'))
         {
-            if ($recipientes->quant >= $request->quant)
-            {
-                Recipientes::where('id', $request->idRecipientes)->update(array('quant'=>($recipientes->quant - $request->quant)));
-            } else {
-                return error_log("Quantidade de Recipientes é menor que a quantidade de Mudas Plantadas");
-            }
+            Recipientes::where('id', $request->idRecipientes)->update(array('quant'=>($recipientes->quant - $request->quant)));
         } else {
             if ($mudas->quant != $request->quant)
             { 
@@ -272,11 +271,7 @@ class MudasController extends Controller
         $transformaPeso = $sementes->peso_100 * $request->quant / 100;
         if($request->isMethod('POST'))
         {
-            if ($sementes->quant_total >= $transformaPeso){   
-                Sementes::where('id', $request->idSementes)->update(array('quant_total'=>($sementes->quant_total - $transformaPeso)));
-            } else {
-                return error_log("Quantidade de Sementes Insuficientes");
-            }
+            Sementes::where('id', $request->idSementes)->update(array('quant_total'=>($sementes->quant_total - $transformaPeso)));
         } else {
             if ($mudas->quant != $request->quant)
             { 
@@ -289,30 +284,18 @@ class MudasController extends Controller
     public function atualizaSubstrato ($request, $substratos, $mudas)
     {
         //Quantidade de mudas * Volume por Recipiente (Transformar de dm³ para m³)
-        $transformaVolume = $request->quant * $request->volume_Subs_Recip /1000;
-        $transformaVolumeMuda = $mudas->quant * $mudas->volume_Subs_Recip/1000;
+        //$transformaVolume = $request->quant * $request->volume_Subs_Recip;
+        //$transformaVolumeMuda = $mudas->quant * $mudas->volume_Subs_Recip;
         
         if($request->isMethod('POST'))
         {
-            if ($substratos->quant >= $transformaVolume){   
-                Substratos::where('id', $request->idSubstratos)->update(array('quant'=>($substratos->quant - $transformaVolume)));
-            } else {
-                return error_log("Quantidade de Substrato Insuficiente");
-            }
+            Substratos::where('id', $request->idSubstratos)->update(array('quant'=>($substratos->quant - $request->volume_Subs_Recip)));
         } else {
-            if ($transformaVolume != $transformaVolumeMuda)
-            {
-                Substratos::where('id', $request->idSubstratos)->update(array(
-                    'quant'=>($substratos->quant + ($transformaVolumeMuda - $transformaVolume))));
-            }
 
             if ($mudas->idSubstratos != $request->idSubstratos)
             {
                 Substratos::where('id', $request->idSubstratos)->update(array(
-                    'quant'=>($substratos->quant - $transformaVolume)));
-
-                Substratos::where('id', $mudas->idSubstratos)->update(array(
-                    'quant'=>($substratos->quant + $transformaVolume)));
+                    'quant'=>($substratos->quant - $request->volume_Subs_Recip)));
 
             }
         }

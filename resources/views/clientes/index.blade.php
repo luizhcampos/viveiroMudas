@@ -46,19 +46,22 @@
             <table class="table table-striped projects">
                 <thead>
                     <tr>
-                        <th style="width: 1%">
+                        <th>
                             Número
                         </th>
-                        <th style="width: 15%">
+                        <th>
                             Nome
                         </th>
-                        <th style="width: 2%">
+                        <th>
+                            Telefone
+                        </th>
+                        <th>
                             Cidade
                         </th>
-                        <th style="width: 20%">
+                        <th>
                             Estado
                         </th>
-                        <th style="width: 15%">
+                        <th>
                         </th>
                     </tr>
                 </thead>
@@ -71,6 +74,11 @@
                         <td>
                             <a>
                                 {{$value['nome']}}
+                            </a>
+                        </td>
+                        <td>
+                            <a>
+                                {{$value['telefone']}}
                             </a>
                         </td>
                         <td >

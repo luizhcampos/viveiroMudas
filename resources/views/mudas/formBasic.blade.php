@@ -15,7 +15,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                     </div>
-                    <input class="form-control" type="date" name="dataPlantio" placeholder="Opcional" value="{{$mudas->dataPlantio ?? old('dataPlantio')}}">
+                    <input class="form-control" type="date" name="dataPlantio" placeholder="Obrigatório" value="{{$mudas->dataPlantio ?? old('dataPlantio')}}" required>
                 </div>
         </div>
     </div>
@@ -25,11 +25,34 @@
         <div class="col-md-3">
             <label>Quantidade</label>
             <input class="form-control" type="number" name="quant" placeholder="Obrigatório" value="{{$mudas->quant ?? old('quant')}}" required='ON'>
-        </div>
+        </div>        
         <div class="col-md-3">
-            <label>Custo de Produção</label>
-            <input class="form-control" type="number" step="0.01" name="custoProducao" placeholder="Obrigatório" 
-                value="{{$mudas->custoProducao ?? old('custoProducao')}}" required='ON'>
+            <label>Finalidade de Plantio</label>
+            <select class="custom-select" type="text" name="tipoPlantio" placeholder="Obrigatório" value="" required>
+                @if ($mudas->tipoPlantio ?? '' != '')
+
+                        <option value="{{$mudas->tipoPlantio}}">{{$mudas->tipoPlantio}}</option>
+                                
+                        @if ($mudas->tipoPlantio == 'Frutífera')
+                            <option>Restauração</option>
+                            <option>Arborização</option>
+                        @endif
+                        
+                        @if ($mudas->tipoPlantio == 'Restauração')
+                            <option>Frutífera</option>
+                            <option>Arborização</option>
+                        @endif
+
+                        @if ($mudas->tipoPlantio == 'Arborização') 
+                            <option>Restauração</option>
+                            <option>Arborização</option>
+                        @endif
+                @else
+                    <option>Frutífera</option>
+                    <option>Restauração</option>
+                    <option>Arborização</option>
+                @endif
+            </select> 
         </div>
         <div class="col-md-2">
             <label>Bloco de Plantio</label>
@@ -78,9 +101,9 @@
 </div>
 <div class="card-body">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <label>Recipiente</label>
-            <select name="idRecipientes" class="custom-select" placeholder="Opcional">
+            <select name="idRecipientes" class="custom-select" placeholder="Obrigatório">
                     <option value=""></option>   
                     @foreach ($Recipientes as $recipiente)
                     <option @if($mudas->idRecipientes == $recipiente->id) selected  @endif
@@ -88,9 +111,9 @@
                     @endforeach    
             </select>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             <label>Substratos</label>
-            <select name="idSubstratos" class="custom-select" placeholder="Opcional">
+            <select name="idSubstratos" class="custom-select" placeholder="Obrigatório">
                 <option value=""></option>   
                 @foreach ($Substratos as $substrato)
                 <option @if($mudas->idSubstratos == $substrato->id) selected  @endif
@@ -99,33 +122,13 @@
             </select> 
         </div>
         <div class="col-md-3">
-            <label>Substrato/Recipiente em dm³</label>
+            <label>Substrato gasto no Plantio</label>
             <input name="volume_Subs_Recip" value="{{$mudas->volume_Subs_Recip ?? old('volume_Subs_Recip')}}" 
-            class="custom-select" type="number" step="0.01" placeholder="Opcional"> 
-        </div>
-        <div class="col-md-2">
-            <label>Tipo de Plantio</label>
-            <select class="form-control" type="text" name="tipoPlantio" placeholder="Opcional" value="">
-                @if ($mudas->tipoPlantio ?? '' != '')
-
-                        <option value="{{$mudas->tipoPlantio}}">{{$mudas->tipoPlantio}}</option>
-                                
-                        @if ($mudas->tipoPlantio == 'Assexuado')
-                            <option>Sexuado</option>
-                        @endif
-                        
-                        @if ($mudas->tipoPlantio == 'Sexuado') 
-                            <option>Assexuado</option>
-                        @endif
-                @else
-                    <option>Assexuado</option>
-                    <option>Sexuado</option>
-                @endif
-            </select> 
+            class="custom-select" type="number" step="0.01" placeholder="Obrigatório"> 
         </div>
         <div class="col-md-3">
             <label>Semente</label>
-            <select name="idSementes" class="custom-select" placeholder="Opcional">
+            <select name="idSementes" class="custom-select" placeholder="Obrigatório">
                 <option value=""></option>   
                 @foreach ($Sementes as $semente)
                 <option @if($mudas->idSementes == $semente->id) selected  @endif

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-4">
             <label>Nome Popular</label>
-            <input class="form-control" type="text" name="nomePopular" placeholder="Obrigatório" value="{{$sementes->nomePopular ?? old('nomePopular')}}">
+            <input class="form-control" type="text" name="nomePopular" placeholder="Obrigatório" value="{{$sementes->nomePopular ?? old('nomePopular')}}" required>
         </div>
         <div class="col-4">
             <label>Nome Científico</label>
@@ -10,11 +10,11 @@
         </div>
         <div class="col-md-2">
             <label>Peso 100 Un. em Kg</label>
-            <input class="form-control" type="number" step="0.01" name="peso_100" placeholder="Opcional" value="{{$sementes->peso_100 ?? old('peso_100')}}">
+            <input class="form-control" type="number" step="0.01" name="peso_100" placeholder="Obrigatório" value="{{$sementes->peso_100 ?? old('peso_100')}}" required>
         </div>
         <div class="col-md-2">
             <label>Peso em KG</label>
-            <input class="form-control" type="number" step="0.01" name="quant_total" placeholder="Opcional" value="{{$sementes->quant_total ?? old('quant_total')}}">
+            <input class="form-control" type="number" step="0.01" name="quant_total" placeholder="Obrigatório" value="{{$sementes->quant_total ?? old('quant_total')}}" required>
         </div>
     </div>
 </div>
@@ -22,7 +22,7 @@
     <div class="row">
         <div class="col-md-9">
             <label>Local da Coleta</label>
-            <input class="form-control" type="text" name="localColeta" placeholder="Opcional" value="{{$sementes->localColeta ?? old('localColeta')}}">
+            <input class="form-control" type="text" name="localColeta" placeholder="Obrigatório" value="{{$sementes->localColeta ?? old('localColeta')}}" required>
         </div>
         <div class="col-md-3">
             <label>Data da Coleta</label>
@@ -30,7 +30,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                     </div>
-                    <input class="form-control" type="date" name="dataColeta" value="{{$sementes->dataColeta ?? old('dataColeta')}}">
+                    <input class="form-control" type="date" name="dataColeta" value="{{$sementes->dataColeta ?? old('dataColeta')}}" required>
                 </div>
         </div>
     </div>

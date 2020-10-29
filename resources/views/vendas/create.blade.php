@@ -81,7 +81,7 @@
                             Data de Plantio
                         </th>
                         <th>
-                            Custo do Lote
+                            Idade do Lote
                         </th>
                         <th>
                             Local da Muda
@@ -127,7 +127,12 @@
                         </td>
                         <td >
                             <a>
-                                {{ 'R$ ' .$value['custoProducao']}}
+                                @php
+                                    $data1 = new DateTime('now');
+                                    $data2 = new DateTime($value['dataPlantio']);
+                                    $intervalo = $data1->diff($data2);
+                                    echo $intervalo->format('%a dias');
+                                @endphp
                             </a>
                         </td>
                         <td >
@@ -148,7 +153,7 @@
                             id="quant{{$value['id']}}" min="0" data-id="{{$value['id']}}">
                         </td>
                         <td >
-                            <input class="form-control calc" type="number" name="precoUn" onchange="calculaValor(this)"
+                            <input class="form-control calc" type="number" value="3" name="precoUn" onchange="calculaValor(this)"
                             id="precoUn{{$value['id']}}" min="0" step="0.01"  data-id="{{$value['id']}}" >
                         </td>
                         <td>

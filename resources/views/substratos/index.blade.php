@@ -56,10 +56,10 @@
                             Composto(s)
                         </th>
                         <th>
-                            Quantidade M³
+                            Quantidade Litros
                         </th>
                         <th>
-                            Início da Maturação
+                            Data do Cadastro
                         </th>
                         <th>
                             Observação

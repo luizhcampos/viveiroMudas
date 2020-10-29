@@ -9,7 +9,7 @@
             event.preventDefault();
             var id = $('#id').val();
 
-            var quant = $('#QuantAtual').val();
+            var quant = $('#quantAtual').val();
 
             if (quant == 0){
                 swal.fire("Verifique", "Campo de Quantidade Atual Inválido", "info");
@@ -38,7 +38,8 @@
                             dataAtualizacao: $('#dataAtualizacao').val(),
                             estagioMuda: $('#estagioMuda').val(),
                             nomePopular: $('#nomePopular').val(),
-                            quant: $('#QuantAtual').val(),
+                            quant: $('#quantAtual').val(),
+                            idRecipientes: $('#idRecipientes').val(),
                         },        
                         success: function(data) {
                             $('#moverMudas').modal('hide');       
@@ -54,7 +55,7 @@
                             });
                         },
                         error: function(xhr,textStatus,thrownError) {
-                            alert(xhr + "\n" + textStatus + "\n" + thrownError);
+                            console.log(xhr + "\n" + textStatus + "\n" + thrownError);
                         }
                     });
             }
@@ -77,7 +78,8 @@
                         $('#dataAtualizacao').val(data.dataAtualizacao);
                         $('#estagioMuda').val(data.estagioMuda);
                         $('#nomePopular').val(data.nomePopular);
-                        $('#QuantMudas').val(data.quant);
+                        $('#quantMudas').val(data.quant);
+                        $('#idRecipientes').val(data.idRecipientes);
                         $('#moverMudas').modal('show');
                     }
                 });
@@ -85,18 +87,19 @@
         });
 
         function AtualizaPerda(Request){
-            var QuantAtual = Request.value;
+            var quantAtual = Request.value;
                
-            var QuantAnt = document.getElementById('QuantMudas').value;
-            if (parseFloat(QuantAtual) > parseFloat(QuantAnt)){
+            var quantAnt = document.getElementById('quantMudas').value;
+            if (parseFloat(quantAtual) > parseFloat(quantAnt)){
                 swal.fire("Verifique", "Quantidade Atual não pode ser maior que a Quantidade anterior", "info");
 
-                document.getElementById('QuantAtual').value = QuantAnt; 
+                document.getElementById('quantAtual').value = quantAnt; 
 
                 //document.Request.QuantAtual.focus();     
             }
 
-            var ValorF = ((QuantAtual * 100)/QuantAnt);
+            var ValorF = ((quantAtual * 100)/quantAnt);
+            var ValorA = (quantAnt - quantAtual);
 
             if (ValorF != 0){
                 ValorF = 100 - ValorF;
@@ -105,7 +108,8 @@
                 ValorF = 0;
             }
 
-            document.getElementById('taxaPerda').value = ValorF.toFixed(2); 
+            document.getElementById('taxaPerda').value = ValorF.toFixed(2);
+            document.getElementById('quantPerda').value = ValorA.toFixed(0); 
         };
 
     </script>
@@ -173,9 +177,6 @@
                             Idade do Lote
                         </th>
                         <th>
-                            Custo de Produção
-                        </th>
-                        <th>
                             Local da Muda
                         </th>
                         <th>
@@ -217,11 +218,6 @@
                                     $intervalo = $data1->diff($data2);
                                     echo $intervalo->format('%a dias');
                                 @endphp
-                            </a>
-                        </td>
-                        <td >
-                            <a>
-                                {{ 'R$ ' .$value['custoProducao']}}
                             </a>
                         </td>
                         <td >
@@ -337,19 +333,36 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Quantidade Anterior:</label>
-                                <input id='QuantMudas' class="form-control" type="text" disabled>
+                                <input id='quantMudas' class="form-control" type="text" disabled>
                             </div> 
                             <div class="col-md-6">
                                 <label>Quantidade Atual:</label>
-                                <input id="QuantAtual"  class="form-control" onchange="AtualizaPerda(this)" type="number" min="1" name="QuantAtual"
+                                <input id="quantAtual"  class="form-control" onchange="AtualizaPerda(this)" type="number" min="1" name="quantAtual"
                                  placeholder="Obrigatório">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
+                                <label>Quantidade Perdida:</label>
+                                <input id="quantPerda"  class="form-control" onchange="AtualizaPerda(this)" type="number" min="1"
+                                    name="quantPerda" disabled>
+                            </div>
+                            <div class="col-md-6">
                                 <label>Taxa de Perda em %:</label>
                                 <input id="taxaPerda"  disabled class="form-control" type="number" min="1" max="100" name="taxaPerda"
-                                 placeholder="Obrigatório" value="{{$mudas->taxaPerda ?? old('taxaPerda')}}" required='ON'>
+                                    value="{{$mudas->taxaPerda ?? old('taxaPerda')}}" required='ON'>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Recipiente Utilizado</label>
+                                <select id="idRecipientes" name="idRecipientes" class="custom-select" placeholder="Obrigatório">
+                                     @foreach ($Recipientes as $recipiente)
+                                        <option 
+                                             value="{{ $recipiente->id }}"> Lote {{$recipiente->id}} | {{ $recipiente->nome }}
+                                        </option>
+                                    @endforeach    
+                                </select>
                             </div>
                             <div class="col-md-6">
                                 <label>Data da Atualização:</label>
