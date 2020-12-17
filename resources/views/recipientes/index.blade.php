@@ -88,19 +88,11 @@
                                 <i class="fas fa-pencil-alt"></i>
                                 Editar
                             </a>
-                            @if ($mudas->find('idRecipientes', $value['id']))
                             <a class="btn btn-danger btn-sm" href="{{route('recipientes.deletar', $value['id'])}}">
                                 <i class="fas fa-trash">
                                 </i>
                                 Deletar
                             </a>
-                            @else
-                            <a class="btn btn-danger btn-sm" href="{{route('recipientes.deletar', $value['id'])}}" disabled>
-                                <i class="fas fa-trash">
-                                </i>
-                                teste
-                            </a>                                
-                            @endif
                         </td>
                     </tr>
                     @endforeach
