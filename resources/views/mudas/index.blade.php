@@ -177,6 +177,9 @@
                             Idade do Lote
                         </th>
                         <th>
+                            Finalidade de Plantio
+                        </th>
+                        <th>
                             Local da Muda
                         </th>
                         <th>
@@ -218,6 +221,11 @@
                                     $intervalo = $data1->diff($data2);
                                     echo $intervalo->format('%a dias');
                                 @endphp
+                            </a>
+                        </td>
+                        <td >
+                            <a>
+                                {{$value['tipoPlantio']}}
                             </a>
                         </td>
                         <td >
